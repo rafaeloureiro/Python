@@ -1,2 +1,2 @@
 # Phyton
-Repositório de programações em Phyton 
+Repositório de alguns projetos de programação em Phyton 
