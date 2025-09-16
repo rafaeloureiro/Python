@@ -1,0 +1,34 @@
+cpf = ''.join(filter(str.isdigit, cpf))
+if len(cpf) != 11:
+    print("❌ CPF must have 11 digits")
+    exit()
+if cpf == cpf[0] * 11:
+    print("❌ Invalid CPF (repeated sequence!)")
+    exit()
+# --- 4. Logic validation ---
+
+try:
+    sum_variable = sum(int(cpf[i]) * (10 - i) for i in range(9))
+    remainder = sum_variable % 11
+    if remainder < 2:
+        digit01 = 0
+    else:
+        digit01 = 11 - remainder
+    if digit01 != int(cpf[9]):
+        print("❌ First check digit is invalid!")
+        exit()
+    sum_variable = sum(int(cpf[i]) * (11 - i) for i in range(10))
+    remainder = sum_variable % 11
+    if remainder < 2:
+        digit02 = 0
+    else:
+        digit02 = 11 - remainder
+
+    if digit02 != int(cpf[10]):
+        print("❌ Second check digit is invalid!")
+        exit()
+    else:
+        print("✅ CPF válido!")
+except IndexError:
+    print("❌ Error processing CPF - invalid format")
+    exit()
