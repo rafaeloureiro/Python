@@ -1,0 +1,63 @@
+#This function is designed to validate Brazilian CPF (Cadastro de Pessoas Físicas) numbers, /
+#which are identification numbers for individuals in Brazil.
+
+# --- 1. Rules ---
+
+#The CPF has 11 digits: the first 9 are the base, and the last 2 are called check digits.
+#These last two work as "security key" to validate that the number was entered correctly.
+
+# --- 1.1 check digit 01 rule
+
+#Multiply the first 9 digits by decreasing weights from 10 to 2.
+#Add the results.
+#Calculate remainder = sum % 11.
+#If remainder < 2, the check digit is 0; otherwise, it is (11 - remainder).
+
+# --- 1.2 check digit 02 rule
+
+#Use the original 9 digits + the first check digit (total 10 digits)
+#Multiply by decreasing weights from 11 to 2.
+#Same treatment as the remainder: remainder = sum % 11; if remainder < 2 -> 0; otherwise -> 11 - remainder.
+
+# --- 2. Data input ---
+
+#ask the user to input a CPF number then save the variable cpf
+cpf = input("Please insert a valid CPF number: ")
+
+# --- 3. Data processing ---
+
+cpf = ''.join(filter(str.isdigit, cpf))
+
+if len(cpf) != 11:
+    print("❌ CPF must have 11 digits")
+    exit()
+if cpf == cpf[0] * 11:
+    print("❌ Invalid CPF (repeated sequence!)")
+    exit()
+# --- 4. Logic validation ---
+
+try:
+    sum_variable = sum(int(cpf[i]) * (10 - i) for i in range(9))
+    remainder = sum_variable % 11
+    if remainder < 2:
+        digit01 = 0
+    else:
+        digit01 = 11 - remainder
+    if digit01 != int(cpf[9]):
+        print("❌ First check digit is invalid!")
+        exit()
+    sum_variable = sum(int(cpf[i]) * (11 - i) for i in range(10))
+    remainder = sum_variable % 11
+    if remainder < 2:
+        digit02 = 0
+    else:
+        digit02 = 11 - remainder
+
+    if digit02 != int(cpf[10]):
+        print("❌ Second check digit is invalid!")
+        exit()
+    else:
+        print("✅ CPF válido!")
+except IndexError:
+    print("❌ Error processing CPF - invalid format")
+    exit()
