@@ -1,9 +1,9 @@
 import streamlit as st
 
-st.title("🔎 Validador de CPF")
-cpf_input = st.text_input("Digite o CPF:")
+st.title("🔎 CPF Validator")
+cpf_input = st.text_input("Please write you CPF number:")
 
-if st.button("Validar"):
+if st.button("Validate"):
     cpf = ''.join(filter(str.isdigit, cpf_input))
 
     if len(cpf) != 11:
