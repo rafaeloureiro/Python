@@ -1,3 +1,4 @@
+cpf = input("Please insert a valid CPF number: ")
 cpf = ''.join(filter(str.isdigit, cpf))
 if len(cpf) != 11:
     print("❌ CPF must have 11 digits")
