@@ -6,7 +6,8 @@ if len(cpf) != 11:
 if cpf == cpf[0] * 11:
     print("❌ Invalid CPF (repeated sequence!)")
     exit()
-# --- 4. Logic validation ---
+
+# --- Logic validation ---
 
 try:
     sum_variable = sum(int(cpf[i]) * (10 - i) for i in range(9))
