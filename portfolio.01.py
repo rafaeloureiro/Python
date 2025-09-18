@@ -7,7 +7,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Título centralizado
+# Header
 st.markdown("<h1 style='text-align: center;'>👋 Hi, I'm Rafael Fernandes</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>Welcome to my Python portfolio! 🚀</p>", unsafe_allow_html=True)
 
