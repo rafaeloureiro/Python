@@ -7,9 +7,9 @@ st.set_page_config(
     layout="wide"
 )
 
-# Header
-st.title("👋 Hi, I'm Rafael Fernandes")
-st.write("Welcome to my Python portfolio! 🚀")
+# Título centralizado
+st.markdown("<h1 style='text-align: center;'>👋 Hi, I'm Rafael Fernandes</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Welcome to my Python portfolio! 🚀</p>", unsafe_allow_html=True)
 
 # About me
 st.header("About Me")
