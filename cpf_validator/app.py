@@ -1,38 +1,51 @@
 import streamlit as st
 
-st.title("🔎 CPF Validator")
-cpf_input = st.text_input("Please write you CPF number:")
+def check_first_digit(text):
+    sum_variable = sum(int(cpf[i]) * (10 - i) for i in range(9))
+    remainder = sum_variable % 11
+    if remainder < 2:
+        digit01 = 0
+    else:
+        digit01 = 11 - remainder
+    return digit01 == int(cpf[9])
 
-if st.button("Validate"):
+def check_second_digit(text):
+    sum_variable = sum(int(cpf[i]) * (11 - i) for i in range(10))
+    remainder = sum_variable % 11
+    if remainder < 2:
+        digit02 = 0
+    else:
+        digit02 = 11 - remainder
+    return digit02 == int(cpf[10])
+
+def is_valid_cpf(text):
+    # Get all digits
     cpf = ''.join(filter(str.isdigit, cpf_input))
 
+    # Check input text
     if len(cpf) != 11:
-        st.error("❌ CPF must have 11 digits")
+        return False, "❌ CPF must have 11 digits"
     elif cpf == cpf[0] * 11:
-        st.error("❌ Invalid CPF (repeated sequence!)")
-    else:
-        try:
-            sum_variable = sum(int(cpf[i]) * (10 - i) for i in range(9))
-            remainder = sum_variable % 11
-            if remainder < 2:
-                digit01 = 0
-            else:
-                digit01 = 11 - remainder
+        return False, "❌ Invalid CPF (repeated sequence!)"
 
-            if digit01 != int(cpf[9]):
-                st.error("❌ First check digit is invalid!")
-            else:
-                sum_variable = sum(int(cpf[i]) * (11 - i) for i in range(10))
-                remainder = sum_variable % 11
-                if remainder < 2:
-                    digit02 = 0
-                else:
-                    digit02 = 11 - remainder
+    is_ok = check_first_digit(text)
+    if not is_ok:
+        return False, "❌ First check digit is invalid!"
+    
+    is_ok = check_second_digit(text)
+    if not is_ok:
+        return False, "❌ Second check digit is invalid!"
+    return True, "✅ CPF válido!"
 
-                if digit02 != int(cpf[10]):
-                    st.error("❌ Second check digit is invalid!")
-                else:
-                    st.success("✅ CPF válido!")
+def main()
+    st.title("CPF Validator")
+    cpf_input = st.text_input("Please write you CPF number:")
 
-        except IndexError:
-            st.error("❌ Error processing CPF - invalid format")
+    if st.button("Validate"):
+        is_ok, response = is_valid_cpf(cpf_input)
+        if is_ok:
+            st.success(response)
+        else:
+            st.error(response)
+
+main()
