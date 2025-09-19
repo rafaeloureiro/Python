@@ -9,7 +9,7 @@ st.set_page_config(
 
 # ===== HEADER =====
 st.markdown(
-    "<h1 style='text-align: center; color:#f18016;'>Rafael Fernandes portfolio</h1>",
+    "<h1 style='text-align: center; color:#f18016;'>Rafael portfolio</h1>",
     unsafe_allow_html=True
 )
 st.markdown(
