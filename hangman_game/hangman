@@ -1,0 +1,63 @@
+import random
+import string
+
+def hangman():
+    # 1. Load a small database
+    words = ["python", "developer", "travel", "fluminense", "programming", "science", "cloud", "beach", "soccer", "cannabis", "crazy", "swim", "surf", "wave", "ride"]
+    word = random.choice(words).lower()
+
+    # 2. Create list of discovered letters
+    discovered = ["_" for _ in word]
+
+    # 3. Set maximum number of attempts
+    attempts_left = 6
+
+    # 4. Create a list of letters already attempted
+    attempted_letters = []
+
+    print("🎮 Welcome to Hangman!")
+    print("Guess the word: ", " ".join(discovered))
+
+    # 5. Game loop
+    while attempts_left > 0 and "_" in discovered:
+        print("\n--------------------------------")
+        print("Word: ", " ".join(discovered))
+        print("Attempts left:", attempts_left)
+        print("Letters already tried:", " ".join(attempted_letters) if attempted_letters else "None")
+
+        # Ask the player for a letter
+        guess = input("Enter a letter: ").lower()
+
+        # Check input validity
+        if len(guess) != 1 or guess not in string.ascii_lowercase:
+            print("❌ Invalid input, enter only one letter (a-z).")
+            continue
+
+        # Check if already attempted
+        if guess in attempted_letters:
+            print("⚠️ You've already attempted this letter.")
+            continue
+
+        # Add to attempted letters
+        attempted_letters.append(guess)
+
+        # Check if guess is in the word
+        if guess in word:
+            for i, letter in enumerate(word):
+                if letter == guess:
+                    discovered[i] = guess
+            print("✅ Good attempt! The letter is in the word.")
+        else:
+            attempts_left -= 1
+            print("❌ Oh no! The letter is not in the word.")
+
+    # Final result
+    if "_" not in discovered:
+        print("\n🎉 Congratulations! You won!")
+        print("The word was:", word)
+    else:
+        print("\n💀 Game Over! You lost.")
+        print("The word was:", word)
+
+# Run the game
+hangman()
