@@ -1,13 +1,29 @@
-# components/header.py
+# app.py
+import streamlit as st
+from components.header import show_header
+from components.about_me import show_about_me
+from components.projects import show_projects
+
+# 1️⃣ Page configuration – must be the *first* Streamlit call
+st.set_page_config(
+    page_title="Rafael Fernandes - Portfolio",
+    page_icon="💻",
+    layout="wide"
+)
+
+def main():
+    """Orchestrate the layout of the Streamlit app."""
+    show_header()     # Header + page config (already called above)
+    show_about_me()   # About Me section
+    show_projects()   # Projects list
+
+if __name__ == "__main__":
+    main()
+    # components/header.py
 import streamlit as st
 
 def show_header():
-    """Configure the page and display the main header."""
-    st.set_page_config(
-        page_title="Rafael Fernandes - Portfolio",
-        page_icon="💻",
-        layout="wide"
-    )
+    """Display the main header and introductory text."""
     st.markdown(
         "<h1 style='text-align: center; color:#f18016;'>Rafael's portfolio</h1>",
         unsafe_allow_html=True
@@ -81,17 +97,3 @@ def show_projects():
         - [View on GitHub](https://github.com/rafaeloureiro/Phyton/edit/main/portfolio.py)
         """
     )
-    # app.py
-import streamlit as st
-from components.header import show_header
-from components.about_me import show_about_me
-from components.projects import show_projects
-
-def main():
-    """Orchestrate the layout of the Streamlit app."""
-    show_header()     # Header and page configuration
-    show_about_me()   # About Me section
-    show_projects()   # Projects list
-
-if __name__ == "__main__":
-    main()
