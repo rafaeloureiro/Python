@@ -2,7 +2,7 @@ import random
 import string
 
 # --- 1. Load words ---
-WORDS = ["python", "developer", "streamlit", "hangman", "programming", "database", "science", "cloud"]
+WORDS = ["python", "developer", "cannabis", "screen", "work", "internet", "science", "sea", "soccer", "drive"]
 
 # --- 2. Functions ---
 
