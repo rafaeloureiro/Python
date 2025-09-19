@@ -58,7 +58,7 @@ st.markdown(
 # Links
 st.markdown(
     """
-    - [👉 Open App](https://phyton-5wygoo5pv5qwkhs8b2rktu.streamlit.app/)
-    - [📂 View on GitHub](https://github.com/rafaeloureiro)
+    - [Open App](https://phyton-5wygoo5pv5qwkhs8b2rktu.streamlit.app/)
+    - [View on GitHub](https://github.com/rafaeloureiro)
     """
 )
