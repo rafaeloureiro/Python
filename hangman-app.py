@@ -4,10 +4,7 @@ import string
 import streamlit as st
 
 # ---------- 1. Word bank ----------
-WORDS = [
-    "python", "developer", "cannabis", "screen", "work",
-    "internet", "science", "sea", "soccer", "drive"
-]
+WORDS = [ "python", "developer", "cannabis", "screen", "work", "internet", "science", "sea", "soccer", "drive"]
 
 # ---------- 2. Game State Management ----------
 def initialize_game():
