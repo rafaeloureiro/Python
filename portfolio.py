@@ -13,7 +13,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown(
-    "<p style='text-align: center; color:black;'>Welcome to my Python portfolio! 🚀</p>",
+    "<p style='text-align: center; color:black;'><b>Welcome to my Python portfolio! 🚀</b></p>",
     unsafe_allow_html=True
 )
 
