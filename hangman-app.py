@@ -9,83 +9,136 @@ WORDS = [
     "internet", "science", "sea", "soccer", "drive"
 ]
 
-# ---------- 2. Reset / initialise game ----------
-def reset_game() -> None:
-    """Populate st.session_state with a fresh game."""
+# ---------- 2. Game State Management ----------
+def initialize_game():
+    """Initialize or reset the game state."""
+    if "game_state" not in st.session_state:
+        reset_game()
+
+def reset_game():
+    """Reset the game to initial state."""
     word = random.choice(WORDS).lower()
-    st.session_state.update(
-        word=word,
-        discovered=["_" for _ in word],
-        attempts_left=6,
-        attempted_letters=[],
-    )
+    st.session_state.game_state = {
+        "word": word,
+        "discovered": ["_" for _ in word],
+        "attempts_left": 6,
+        "attempted_letters": [],
+        "game_over": False,
+        "message": {"text": "", "type": ""}
+    }
 
-# Initialise only once
-if "word" not in st.session_state:
-    reset_game()
+def get_game_state():
+    """Get the current game state."""
+    return st.session_state.game_state
 
-# ---------- 3. Process a single guess ----------
-def process_guess(guess: str) -> None:
-    """Update state for one letter."""
+def update_game_state(key, value):
+    """Update a specific value in the game state."""
+    st.session_state.game_state[key] = value
+
+# ---------- 3. Game Logic ----------
+def process_guess(guess):
+    """Process a player's guess."""
+    game_state = get_game_state()
+    
+    # Validation
     if len(guess) != 1 or guess not in string.ascii_lowercase:
-        st.error("❌ Invalid input – only a single letter (a‑z) is allowed.")
+        update_game_state("message", {"text": "❌ Invalid input – only a single letter (a‑z) is allowed.", "type": "error"})
         return
-    if guess in st.session_state.attempted_letters:
-        st.warning("⚠️ You already tried that letter.")
+    
+    if guess in game_state["attempted_letters"]:
+        update_game_state("message", {"text": "⚠️ You already tried that letter.", "type": "warning"})
         return
-
-    st.session_state.attempted_letters.append(guess)
-
-    if guess in st.session_state.word:
+    
+    # Add to attempted letters
+    attempted_letters = game_state["attempted_letters"] + [guess]
+    update_game_state("attempted_letters", attempted_letters)
+    
+    # Check if guess is correct
+    if guess in game_state["word"]:
         # Reveal all positions that match the guessed letter
-        for i, letter in enumerate(st.session_state.word):
+        discovered = game_state["discovered"].copy()
+        for i, letter in enumerate(game_state["word"]):
             if letter == guess:
-                st.session_state.discovered[i] = guess
-        st.success(f"✅ Good job! '{guess}' is in the word.")
+                discovered[i] = guess
+        
+        update_game_state("discovered", discovered)
+        update_game_state("message", {"text": f"✅ Good job! '{guess}' is in the word.", "type": "success"})
     else:
-        st.session_state.attempts_left -= 1
-        st.error(f"❌ Oops! '{guess}' is not in the word.")
+        attempts_left = game_state["attempts_left"] - 1
+        update_game_state("attempts_left", attempts_left)
+        update_game_state("message", {"text": f"❌ Oops! '{guess}' is not in the word.", "type": "error"})
+    
+    # Check if game is over
+    check_game_over()
 
-# ---------- 4. Check if the game is over ----------
-def check_game_over() -> bool:
-    if "_" not in st.session_state.discovered:
-        st.balloons()
-        st.success(f"🎉 You won! The word was **{st.session_state.word}**.")
-        return True
-    if st.session_state.attempts_left <= 0:
-        st.error(f"💀 Game over – you lost. The word was **{st.session_state.word}**.")
-        return True
-    return False
+def check_game_over():
+    """Check if the game has ended and update state accordingly."""
+    game_state = get_game_state()
+    
+    if "_" not in game_state["discovered"]:
+        update_game_state("game_over", True)
+        update_game_state("message", {"text": f"🎉 You won! The word was **{game_state['word']}**.", "type": "success"})
+    elif game_state["attempts_left"] <= 0:
+        update_game_state("game_over", True)
+        update_game_state("message", {"text": f"💀 Game over – you lost. The word was **{game_state['word']}**.", "type": "error"})
 
-# ---------- 5. Streamlit UI ----------
-st.set_page_config(page_title="Hang‑man", layout="centered")
-st.title("🕹️ Hang‑man (Streamlit Edition)")
+# ---------- 4. UI Components ----------
+def display_header():
+    """Display the game header."""
+    st.set_page_config(page_title="Hang‑man", layout="centered")
+    st.title("🕹️ Hang‑man (Streamlit Edition)")
 
-# --- 5.1  Status display (after any state change) ---
-st.subheader("Word:")
-st.write(" ".join(st.session_state.discovered))
+def display_game_status():
+    """Display the current game status."""
+    game_state = get_game_state()
+    
+    st.subheader("Word:")
+    st.write(" ".join(game_state["discovered"]))
+    
+    st.subheader("Attempts left:")
+    st.write(game_state["attempts_left"])
+    
+    st.subheader("Letters tried:")
+    st.write(", ".join(game_state["attempted_letters"]) or "None")
 
-st.subheader("Attempts left:")
-st.write(st.session_state.attempts_left)
+def display_message():
+    """Display any game messages."""
+    game_state = get_game_state()
+    if game_state["message"]["text"]:
+        if game_state["message"]["type"] == "success":
+            st.success(game_state["message"]["text"])
+        elif game_state["message"]["type"] == "error":
+            st.error(game_state["message"]["text"])
+        elif game_state["message"]["type"] == "warning":
+            st.warning(game_state["message"]["text"])
 
-st.subheader("Letters tried:")
-st.write(", ".join(st.session_state.attempted_letters) or "None")
+def display_input_form():
+    """Display the input form for guesses."""
+    game_state = get_game_state()
+    
+    with st.form(key='guess_form'):
+        guess = st.text_input("Enter a letter (a‑z)", max_chars=1, key="guess_input")
+        submitted = st.form_submit_button("Guess", disabled=game_state["game_over"])
+    
+    if submitted and guess:
+        process_guess(guess.lower())
+        st.rerun()
 
-# --- 5.2  Text input + Guess button ---
-# Create a form to handle input
-with st.form(key='guess_form'):
-    guess = st.text_input("Enter a letter (a‑z)", max_chars=1, key="guess_input")
-    submitted = st.form_submit_button("Guess")
+def display_restart_button():
+    """Display the restart button."""
+    if st.button("Restart"):
+        reset_game()
+        st.rerun()
 
-if submitted and guess:
-    process_guess(guess.lower())
-    # Clear the input by using a form and letting it reset
+# ---------- 5. Main Application ----------
+def main():
+    """Main application function."""
+    initialize_game()
+    display_header()
+    display_game_status()
+    display_message()
+    display_input_form()
+    display_restart_button()
 
-# --- 5.3  Check game status ---
-if check_game_over():
-    st.info("Game over! Click 'Restart' to play again.")
-
-# --- 5.4  Restart button ---
-if st.button("Restart"):
-    reset_game()
-    st.rerun()
+if __name__ == "__main__":
+    main()
