@@ -1,7 +1,7 @@
 import streamlit as st
 
 def check_first_digit(text):
-    sum_variable = sum(int(cpf[i]) * (10 - i) for i in range(9))
+    sum_variable = sum(int(text[i]) * (10 - i) for i in range(9))
     remainder = sum_variable % 11
     if remainder < 2:
         digit01 = 0
@@ -10,7 +10,7 @@ def check_first_digit(text):
     return digit01 == int(cpf[9])
 
 def check_second_digit(text):
-    sum_variable = sum(int(cpf[i]) * (11 - i) for i in range(10))
+    sum_variable = sum(int(text[i]) * (11 - i) for i in range(10))
     remainder = sum_variable % 11
     if remainder < 2:
         digit02 = 0
@@ -37,7 +37,7 @@ def is_valid_cpf(text):
         return False, "❌ Second check digit is invalid!"
     return True, "✅ CPF válido!"
 
-def main()
+def main():
     st.title("CPF Validator")
     cpf_input = st.text_input("Please write you CPF number:")
 
