@@ -79,5 +79,5 @@ check_game_over()
 # --- 6. Restart Button ---
 if st.button("Restart Game"):
     restart_game()
-    st.experimental_rerun()  # safe now, because we não usamos clear()
+    st.experimental_rerun() 
 
