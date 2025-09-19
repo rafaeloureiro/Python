@@ -8,7 +8,7 @@ st.set_page_config(
 )
 
 # Header
-st.markdown("<h1 style='text-align: center;'>👋 Hi, I'm Rafael Fernandes</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Rafael Fernandes portfolio</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>Welcome to my Python portfolio! 🚀</p>", unsafe_allow_html=True)
 
 # About me
@@ -30,11 +30,11 @@ st.markdown(
 st.divider()
 
 # Projects Section
-st.header("📂 Projects")
+st.header("Projects")
 
 # Project 1
 st.subheader("CPF Validator")
 st.write("This function is designed to validate Brazilian CPF (Cadastro de Pessoas Físicas) numbers, "
          "which are identification numbers for individuals in Brazil.")
-st.markdown("[👉 Open App](https://phyton-5wygoo5pv5qwkhs8b2rktu.streamlit.app/)")
-st.markdown("[📂 View on GitHub](https://github.com/rafaeloureiro)")
+st.markdown("[Open App](https://phyton-5wygoo5pv5qwkhs8b2rktu.streamlit.app/)")
+st.markdown("[View on GitHub](https://github.com/rafaeloureiro)")
