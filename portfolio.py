@@ -1,6 +1,5 @@
 # app.py
 import streamlit as st
-from components.header import show_header
 from components.about_me import show_about_me
 from components.projects import show_projects
 
