@@ -18,7 +18,6 @@ def reset_game() -> None:
         discovered=["_" for _ in word],
         attempts_left=6,
         attempted_letters=[],
-        guess_input="",          # this is the key for the textbox
     )
 
 # Initialise only once
@@ -54,7 +53,6 @@ def check_game_over() -> bool:
         st.success(f"🎉 You won! The word was **{st.session_state.word}**.")
         return True
     if st.session_state.attempts_left <= 0:
-        st.emoji("💀")
         st.error(f"💀 Game over – you lost. The word was **{st.session_state.word}**.")
         return True
     return False
@@ -74,20 +72,20 @@ st.subheader("Letters tried:")
 st.write(", ".join(st.session_state.attempted_letters) or "None")
 
 # --- 5.2  Text input + Guess button ---
-# Only use the key – no `value=` argument
-guess = st.text_input("Enter a letter (a‑z)", key="guess_input")
+# Create a form to handle input
+with st.form(key='guess_form'):
+    guess = st.text_input("Enter a letter (a‑z)", max_chars=1, key="guess_input")
+    submitted = st.form_submit_button("Guess")
 
-if st.button("Guess"):
-    if guess:  # process only if something was typed
-        process_guess(guess.lower())
+if submitted and guess:
+    process_guess(guess.lower())
+    # Clear the input by using a form and letting it reset
 
-        # **Clear the textbox immediately** – this removes the “delay”
-        st.session_state.guess_input = ""
+# --- 5.3  Check game status ---
+if check_game_over():
+    st.info("Game over! Click 'Restart' to play again.")
 
-        # If the game has finished, the input stays cleared
-        if check_game_over():
-            st.session_state.guess_input = ""
-
-# --- 5.3  Restart button ---
+# --- 5.4  Restart button ---
 if st.button("Restart"):
     reset_game()
+    st.rerun()
