@@ -1,7 +1,4 @@
-# app.py
 import streamlit as st
-from components.about_me import show_about_me
-from components.projects import show_projects
 
 # 1️⃣ Page configuration – must be the *first* Streamlit call
 st.set_page_config(
@@ -9,17 +6,6 @@ st.set_page_config(
     page_icon="💻",
     layout="wide"
 )
-
-def main():
-    """Orchestrate the layout of the Streamlit app."""
-    show_header()     # Header + page config (already called above)
-    show_about_me()   # About Me section
-    show_projects()   # Projects list
-
-if __name__ == "__main__":
-    main()
-    # components/header.py
-import streamlit as st
 
 def show_header():
     """Display the main header and introductory text."""
@@ -31,8 +17,6 @@ def show_header():
         "<p style='text-align: center; color:black;'><b>Welcome to my Python portfolio! 🚀</b></p>",
         unsafe_allow_html=True
     )
-    # components/about_me.py
-import streamlit as st
 
 def show_about_me():
     """Display the About Me section with contact links."""
@@ -54,8 +38,6 @@ def show_about_me():
         """
     )
     st.divider()
-    # components/projects.py
-import streamlit as st
 
 def show_projects():
     """List all projects with titles, descriptions, and links."""
@@ -96,3 +78,12 @@ def show_projects():
         - [View on GitHub](https://github.com/rafaeloureiro/Phyton/edit/main/portfolio.py)
         """
     )
+
+def main():
+    """Orchestrate the layout of the Streamlit app."""
+    show_header()
+    show_about_me()
+    show_projects()
+
+if __name__ == "__main__":
+    main()
