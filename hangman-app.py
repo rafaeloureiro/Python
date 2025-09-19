@@ -51,8 +51,6 @@ elif st.session_state.attempts_left <= 0:
 
 # --- 7. Restart game button ---
 if st.button("Restart Game"):
-    st.session_state.word = random.choice(words).lower()
-    st.session_state.discovered = ["_" for _ in st.session_state.word]
-    st.session_state.attempts_left = 6
-    st.session_state.attempted_letters = []
-    st.experimental_rerun()
+    st.session_state.clear()  # Clears all session state variables
+    st.experimental_rerun()   # Reruns the script
+
