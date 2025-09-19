@@ -61,6 +61,8 @@ def show_projects():
         """
     )
 
+    st.markdown("")
+
     # Project 02 – Hangman
     st.markdown("**🕹️ Hangman game**")
     st.markdown(
