@@ -62,3 +62,23 @@ st.markdown(
     - [View on GitHub](https://github.com/rafaeloureiro)
     """
 )
+
+# Project 02
+st.markdown("**🕹️ Hangman game**")
+st.markdown(
+    """
+    <p style='color:black;'>
+    Hangman is a classic word-guessing game for one player on which he
+    tries to guess a random word by suggesting letters one by one within a limited number of incorrect guesses.
+    </p>
+    """,
+    unsafe_allow_html=True
+)
+
+# Links
+st.markdown(
+    """
+    - [Open App](https://phyton-cn6wsape5vnb5elwrdzwb6.streamlit.app/)
+    - [View on GitHub](https://github.com/rafaeloureiro/Phyton/edit/main/portfolio.py)
+    """
+
