@@ -21,7 +21,7 @@ This page showcases some of my projects built with Python.
 # Links
 st.markdown(
     """
-    **🔗 Connect with me:**  
+    **🔗 Connect with me**  
     - [LinkedIn](https://www.linkedin.com/in/rafaeloureiro/)  
     - [GitHub](https://github.com/rafaeloureiro)  
     """
