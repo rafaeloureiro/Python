@@ -86,7 +86,7 @@ def check_game_over():
 def display_header():
     """Display the game header."""
     st.set_page_config(page_title="Hang‑man", layout="centered")
-    st.title("🕹️ Hang‑man (Streamlit Edition)")
+    st.title("Hangman game")
 
 def display_game_status():
     """Display the current game status."""
