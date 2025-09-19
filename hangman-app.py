@@ -3,7 +3,7 @@ import random
 import string
 
 # --- 1. Load words ---
-WORDS = ["python", "developer", "cannabis", "hangman", "programming", "home", "skeleton", "sea", "surf", "sports", "soccer", "happy", "cluster"]
+WORDS = ["python", "developer", "streamlit", "hangman", "programming", "database", "science", "cloud"]
 
 # --- 2. Functions ---
 
@@ -57,9 +57,11 @@ def check_game_over():
     return False
 
 def restart_game():
-    """Reinicia o jogo limpando o session state e rerun."""
-    st.session_state.clear()
-    st.experimental_rerun()
+    """Reinicia o jogo definindo novamente o estado do jogo sem usar clear()."""
+    st.session_state.word = random.choice(WORDS).lower()
+    st.session_state.discovered = ["_" for _ in st.session_state.word]
+    st.session_state.attempts_left = 6
+    st.session_state.attempted_letters = []
 
 # --- 3. Main App ---
 
@@ -77,4 +79,5 @@ check_game_over()
 # --- 6. Restart Button ---
 if st.button("Restart Game"):
     restart_game()
+    st.experimental_rerun()  # safe now, because we não usamos clear()
 
