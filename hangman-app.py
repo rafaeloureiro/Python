@@ -1,45 +1,34 @@
 # hangman_streamlit.py
-# -----------------------------------------------
-# Hang‑man for Streamlit – instant counter updates.
-# -----------------------------------------------
-
 import random
 import string
 import streamlit as st
 
-# --------------------------------------------------
-# 1. Word list
-# --------------------------------------------------
+# -------------------- 1. Word list --------------------
 WORDS = [
     "python", "developer", "cannabis", "screen", "work",
     "internet", "science", "sea", "soccer", "drive"
 ]
 
-# --------------------------------------------------
-# 2. Initialise / reset the game state
-# --------------------------------------------------
+# -------------------- 2. Game reset --------------------
 def reset_game() -> None:
-    """Populate st.session_state with a fresh game."""
     word = random.choice(WORDS).lower()
-    st.session_state.word = word
-    st.session_state.discovered = ["_" for _ in word]
-    st.session_state.attempts_left = 6
-    st.session_state.attempted_letters = []
-    st.session_state.guess_input = ""          # clear the textbox
+    st.session_state.update(
+        word=word,
+        discovered=["_" for _ in word],
+        attempts_left=6,
+        attempted_letters=[],
+        guess_input="",          # will be used as the key for the textbox
+    )
 
 # Initialise on first run
 if "word" not in st.session_state:
     reset_game()
 
-# --------------------------------------------------
-# 3. Helper that processes a single guess
-# --------------------------------------------------
+# -------------------- 3. Guess processor --------------------
 def process_guess(guess: str) -> None:
-    """Update the game state for one letter."""
     if len(guess) != 1 or guess not in string.ascii_lowercase:
         st.error("❌ Invalid input – only a single letter (a‑z) is allowed.")
         return
-
     if guess in st.session_state.attempted_letters:
         st.warning("⚠️ You already tried that letter.")
         return
@@ -56,11 +45,8 @@ def process_guess(guess: str) -> None:
         st.session_state.attempts_left -= 1
         st.error(f"❌ Oops! '{guess}' is not in the word.")
 
-# --------------------------------------------------
-# 4. Check whether the game is finished
-# --------------------------------------------------
+# -------------------- 4. Game‑over checker --------------------
 def check_game_over() -> bool:
-    """Return True if the game has finished, otherwise False."""
     if "_" not in st.session_state.discovered:
         st.balloons()
         st.success(f"🎉 You won! The word was **{st.session_state.word}**.")
@@ -71,13 +57,11 @@ def check_game_over() -> bool:
         return True
     return False
 
-# --------------------------------------------------
-# 5. Streamlit UI
-# --------------------------------------------------
+# -------------------- 5. Streamlit UI --------------------
 st.set_page_config(page_title="Hang‑man", layout="centered")
 st.title("🕹️ Hang‑man (Streamlit Edition)")
 
-# --- 5.1  Game status (shown *after* any state change) ---
+# --- 5.1  Status display (after any state change) ---
 st.subheader("Word:")
 st.write(" ".join(st.session_state.discovered))
 
@@ -87,20 +71,17 @@ st.write(st.session_state.attempts_left)
 st.subheader("Letters tried:")
 st.write(", ".join(st.session_state.attempted_letters) or "None")
 
-# --- 5.2  Input & Guess button ---
-guess = st.text_input(
-    "Enter a letter (a‑z)",
-    value=st.session_state.guess_input,
-    key="guess_input"
-)
+# --- 5.2  Text input + Guess button ---
+# Only use the key – no `value=` argument
+guess = st.text_input("Enter a letter (a‑z)", key="guess_input")
 
 if st.button("Guess"):
-    if guess:  # only process if something was typed
+    if guess:  # process only if something was typed
         process_guess(guess.lower())
-        # clear the input field immediately
+        # Immediately clear the textbox for the next turn
         st.session_state.guess_input = ""
 
-        # If the game has finished, disable further input
+        # If the game ended, lock the input (it will already be empty)
         if check_game_over():
             st.session_state.guess_input = ""
 
