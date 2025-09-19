@@ -1,63 +1,75 @@
 import random
 import string
 
-def hangman():
-    # 1. Load a small database
-    words = ["python", "developer", "travel", "fluminense", "programming", "science", "cloud", "beach", "soccer", "cannabis", "crazy", "swim", "surf", "wave", "ride"]
-    word = random.choice(words).lower()
+# --- 1. Load words ---
+WORDS = ["python", "developer", "streamlit", "hangman", "programming", "database", "science", "cloud"]
 
-    # 2. Create list of discovered letters
+# --- 2. Functions ---
+
+def init_game():
+    """Inicializa o estado do jogo."""
+    word = random.choice(WORDS).lower()
     discovered = ["_" for _ in word]
-
-    # 3. Set maximum number of attempts
     attempts_left = 6
-
-    # 4. Create a list of letters already attempted
     attempted_letters = []
+    return word, discovered, attempts_left, attempted_letters
 
-    print("🎮 Welcome to Hangman!")
-    print("Guess the word: ", " ".join(discovered))
+def display_state(discovered, attempts_left, attempted_letters):
+    """Exibe o estado atual do jogo."""
+    print("\nWord: ", " ".join(discovered))
+    print("Attempts left:", attempts_left)
+    print("Letters already tried:", ", ".join(attempted_letters) if attempted_letters else "None")
 
-    # 5. Game loop
-    while attempts_left > 0 and "_" in discovered:
-        print("\n--------------------------------")
-        print("Word: ", " ".join(discovered))
-        print("Attempts left:", attempts_left)
-        print("Letters already tried:", " ".join(attempted_letters) if attempted_letters else "None")
-
-        # Ask the player for a letter
-        guess = input("Enter a letter: ").lower()
-
-        # Check input validity
-        if len(guess) != 1 or guess not in string.ascii_lowercase:
-            print("❌ Invalid input, enter only one letter (a-z).")
-            continue
-
-        # Check if already attempted
-        if guess in attempted_letters:
-            print("⚠️ You've already attempted this letter.")
-            continue
-
-        # Add to attempted letters
+def process_guess(guess, word, discovered, attempts_left, attempted_letters):
+    """Processa o chute do usuário e atualiza o estado."""
+    if len(guess) != 1 or guess not in string.ascii_lowercase:
+        print("❌ Invalid input, enter only one letter (a-z).")
+    elif guess in attempted_letters:
+        print("⚠️ You've already attempted this letter.")
+    else:
         attempted_letters.append(guess)
-
-        # Check if guess is in the word
         if guess in word:
             for i, letter in enumerate(word):
                 if letter == guess:
                     discovered[i] = guess
-            print("✅ Good attempt! The letter is in the word.")
+            print(f"✅ Good attempt! '{guess}' is in the word.")
         else:
             attempts_left -= 1
-            print("❌ Oh no! The letter is not in the word.")
+            print(f"❌ Oh no! '{guess}' is not in the word.")
+    return discovered, attempts_left, attempted_letters
 
-    # Final result
+def check_game_over(word, discovered, attempts_left):
+    """Verifica se o jogo terminou."""
     if "_" not in discovered:
-        print("\n🎉 Congratulations! You won!")
-        print("The word was:", word)
-    else:
-        print("\n💀 Game Over! You lost.")
-        print("The word was:", word)
+        print(f"\n🎉 Congratulations! You won! The word was: {word}")
+        return True
+    elif attempts_left <= 0:
+        print(f"\n💀 Game Over! You lost. The word was: {word}")
+        return True
+    return False
 
-# Run the game
-hangman()
+# --- 3. Main Game Loop ---
+
+def play_game():
+    word, discovered, attempts_left, attempted_letters = init_game()
+    game_over = False
+
+    while not game_over:
+        display_state(discovered, attempts_left, attempted_letters)
+        guess = input("Enter a letter (a-z): ").lower()
+        discovered, attempts_left, attempted_letters = process_guess(
+            guess, word, discovered, attempts_left, attempted_letters
+        )
+        game_over = check_game_over(word, discovered, attempts_left)
+
+    # Pergunta se o usuário quer jogar novamente
+    play_again = input("\nDo you want to play again? (y/n): ").lower()
+    if play_again == "y":
+        play_game()
+    else:
+        print("Thanks for playing! 👋")
+
+# --- 4. Start the game ---
+if __name__ == "__main__":
+    play_game()
+
