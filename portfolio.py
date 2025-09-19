@@ -33,9 +33,10 @@ st.divider()
 st.header("Projects")
 
 # Project 01
+st.markdown("**🔢 CPF Validator**")
+st.write("This function is designed to validate Brazilian CPF (Cadastro de Pessoas Físicas)")
 st.markdown(
     """
-    **🔢 CPF Validator**
     - [Open App](https://phyton-5wygoo5pv5qwkhs8b2rktu.streamlit.app/)
     - [View on GitHub](https://github.com/rafaeloureiro)
     """
