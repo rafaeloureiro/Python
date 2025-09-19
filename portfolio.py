@@ -57,7 +57,7 @@ def show_projects():
     st.markdown(
         """
         - [Open App](https://phyton-5wygoo5pv5qwkhs8b2rktu.streamlit.app/)
-        - [View on GitHub](https://github.com/rafaeloureiro)
+        - [View on GitHub](https://github.com/rafaeloureiro/Phyton/blob/main/hangman_game/hangman)
         """
     )
 
