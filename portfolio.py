@@ -34,7 +34,7 @@ st.header("Projects")
 
 # Project 01
 st.markdown("**🔢 CPF Validator**")
-st.write("This function is designed to validate Brazilian CPF (Cadastro de Pessoas Físicas)")
+st.write("This function is designed to validate Brazilian CPF (Cadastro de Pessoas Físicas) numbers, which are identification numbers for individuals in Brazil")
 st.markdown(
     """
     - [Open App](https://phyton-5wygoo5pv5qwkhs8b2rktu.streamlit.app/)
