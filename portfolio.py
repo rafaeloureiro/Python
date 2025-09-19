@@ -1,3 +1,4 @@
+
 import streamlit as st
 
 # Page configuration
@@ -81,4 +82,4 @@ st.markdown(
     - [Open App](https://phyton-cn6wsape5vnb5elwrdzwb6.streamlit.app/)
     - [View on GitHub](https://github.com/rafaeloureiro/Phyton/edit/main/portfolio.py)
     """
-
+)
