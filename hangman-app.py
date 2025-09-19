@@ -3,30 +3,33 @@ import random
 import string
 
 # --- 1. Load words ---
-words = ["python", "developer", "streamlit", "hangman", "programming", "database", "science", "cloud"]
+WORDS = ["python", "developer", "cannabis", "hangman", "programming", "home", "skeleton", "sea", "surf", "sports", "soccer", "happy", "cluster"]
 
-# --- 2. Session state to keep the game state ---
-if "word" not in st.session_state:
-    st.session_state.word = random.choice(words).lower()
-if "discovered" not in st.session_state:
-    st.session_state.discovered = ["_" for _ in st.session_state.word]
-if "attempts_left" not in st.session_state:
-    st.session_state.attempts_left = 6
-if "attempted_letters" not in st.session_state:
-    st.session_state.attempted_letters = []
+# --- 2. Functions ---
 
-st.title("🎮 Hangman Game")
+def init_game():
+    """Inicializa o estado do jogo se ainda não existir."""
+    if "word" not in st.session_state:
+        st.session_state.word = random.choice(WORDS).lower()
+    if "discovered" not in st.session_state:
+        st.session_state.discovered = ["_" for _ in st.session_state.word]
+    if "attempts_left" not in st.session_state:
+        st.session_state.attempts_left = 6
+    if "attempted_letters" not in st.session_state:
+        st.session_state.attempted_letters = []
 
-# --- 3. Display current state ---
-st.write("Word: ", " ".join(st.session_state.discovered))
-st.write("Attempts left:", st.session_state.attempts_left)
-st.write("Letters already tried:", ", ".join(st.session_state.attempted_letters) if st.session_state.attempted_letters else "None")
+def display_state():
+    """Exibe o estado atual do jogo."""
+    st.title("🎮 Hangman Game")
+    st.write("Word: ", " ".join(st.session_state.discovered))
+    st.write("Attempts left:", st.session_state.attempts_left)
+    st.write(
+        "Letters already tried:", 
+        ", ".join(st.session_state.attempted_letters) if st.session_state.attempted_letters else "None"
+    )
 
-# --- 4. Input from user ---
-guess = st.text_input("Enter a letter (a-z)").lower()
-
-# --- 5. Process the guess ---
-if guess:
+def process_guess(guess):
+    """Processa o chute do usuário."""
     if len(guess) != 1 or guess not in string.ascii_lowercase:
         st.warning("❌ Invalid input, enter only one letter (a-z).")
     elif guess in st.session_state.attempted_letters:
@@ -42,15 +45,36 @@ if guess:
             st.session_state.attempts_left -= 1
             st.error(f"❌ Oh no! '{guess}' is not in the word.")
 
-# --- 6. Check game over ---
-if "_" not in st.session_state.discovered:
-    st.balloons()
-    st.success(f"🎉 Congratulations! You won! The word was: {st.session_state.word}")
-elif st.session_state.attempts_left <= 0:
-    st.error(f"💀 Game Over! You lost. The word was: {st.session_state.word}")
+def check_game_over():
+    """Verifica se o jogo terminou."""
+    if "_" not in st.session_state.discovered:
+        st.balloons()
+        st.success(f"🎉 Congratulations! You won! The word was: {st.session_state.word}")
+        return True
+    elif st.session_state.attempts_left <= 0:
+        st.error(f"💀 Game Over! You lost. The word was: {st.session_state.word}")
+        return True
+    return False
 
-# --- 7. Restart game button ---
+def restart_game():
+    """Reinicia o jogo limpando o session state e rerun."""
+    st.session_state.clear()
+    st.experimental_rerun()
+
+# --- 3. Main App ---
+
+init_game()
+display_state()
+
+# --- 4. User Input ---
+guess = st.text_input("Enter a letter (a-z)").lower()
+if guess:
+    process_guess(guess)
+
+# --- 5. Check Game Over ---
+check_game_over()
+
+# --- 6. Restart Button ---
 if st.button("Restart Game"):
-    st.session_state.clear()  # Clears all session state variables
-    st.experimental_rerun()   # Reruns the script
+    restart_game()
 
