@@ -36,7 +36,6 @@ st.header("Projects")
 st.markdown(
     """
     **🔢 CPF Validator**
-This function is designed to validate Brazilian CPF (Cadastro de Pessoas Físicas) numbers, which are identification numbers for individuals in Brazil."
     - [Open App](https://phyton-5wygoo5pv5qwkhs8b2rktu.streamlit.app/)
     - [View on GitHub](https://github.com/rafaeloureiro)
     """
