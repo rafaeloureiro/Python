@@ -20,7 +20,7 @@ def reset_game():
     word = random.choice(WORDS).lower()
     st.session_state.game_state = {
         "word": word,
-        "discovered": ["_" for _ in word],
+        "discovered": ["_" for _ in word],  # This creates the underscores
         "attempts_left": 6,
         "attempted_letters": [],
         "game_over": False,
@@ -77,6 +77,7 @@ def check_game_over():
     
     if "_" not in game_state["discovered"]:
         update_game_state("game_over", True)
+        st.balloons()
         update_game_state("message", {"text": f"🎉 You won! The word was **{game_state['word']}**.", "type": "success"})
     elif game_state["attempts_left"] <= 0:
         update_game_state("game_over", True)
@@ -86,20 +87,33 @@ def check_game_over():
 def display_header():
     """Display the game header."""
     st.set_page_config(page_title="Hang‑man", layout="centered")
-    st.title("Hangman game")
+    st.title("🕹️ Hang‑man (Streamlit Edition)")
+
+def display_word():
+    """Display the word with underscores for hidden letters."""
+    game_state = get_game_state()
+    st.subheader("Word:")
+    # Display each letter or underscore with proper spacing
+    st.markdown(f"**{' '.join(game_state['discovered'])}**")
+    st.write("")  # Add some spacing
+
+def display_attempts():
+    """Display remaining attempts."""
+    game_state = get_game_state()
+    st.subheader("Attempts left:")
+    st.write(game_state["attempts_left"])
+
+def display_attempted_letters():
+    """Display letters that have been tried."""
+    game_state = get_game_state()
+    st.subheader("Letters tried:")
+    st.write(", ".join(game_state["attempted_letters"]) or "None")
 
 def display_game_status():
     """Display the current game status."""
-    game_state = get_game_state()
-    
-    st.subheader("Word:")
-    st.write(" ".join(game_state["discovered"]))
-    
-    st.subheader("Attempts left:")
-    st.write(game_state["attempts_left"])
-    
-    st.subheader("Letters tried:")
-    st.write(", ".join(game_state["attempted_letters"]) or "None")
+    display_word()
+    display_attempts()
+    display_attempted_letters()
 
 def display_message():
     """Display any game messages."""
