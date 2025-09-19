@@ -3,10 +3,10 @@ import random
 import string
 import streamlit as st
 
-# ---------- 1. Word bank ----------
+# ---------- 1. words database ----------
 WORDS = [ "python", "developer", "cannabis", "screen", "work", "internet", "science", "sea", "soccer", "drive"]
 
-# ---------- 2. Game State Management ----------
+# ---------- 2. game management ----------
 def initialize_game():
     """Initialize or reset the game state."""
     if "game_state" not in st.session_state:
