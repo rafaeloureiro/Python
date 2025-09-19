@@ -1,6 +1,6 @@
 # hangman_streamlit.py
 # -----------------------------------------------
-# Hang‑man for Streamlit – counter updates instantly.
+# Hang‑man for Streamlit – instant counter updates.
 # -----------------------------------------------
 
 import random
@@ -89,4 +89,21 @@ st.write(", ".join(st.session_state.attempted_letters) or "None")
 
 # --- 5.2  Input & Guess button ---
 guess = st.text_input(
-    "
+    "Enter a letter (a‑z)",
+    value=st.session_state.guess_input,
+    key="guess_input"
+)
+
+if st.button("Guess"):
+    if guess:  # only process if something was typed
+        process_guess(guess.lower())
+        # clear the input field immediately
+        st.session_state.guess_input = ""
+
+        # If the game has finished, disable further input
+        if check_game_over():
+            st.session_state.guess_input = ""
+
+# --- 5.3  Restart button ---
+if st.button("Restart"):
+    reset_game()
