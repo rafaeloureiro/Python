@@ -57,7 +57,7 @@ def main() -> None:
     st.title("CPF Validator")
 
     # Input field for the user to type a CPF
-    cpf_input = st.text_input("Enter your CPF:")
+    cpf_input = st.text_input("Enter your CPF:", max_chars=11,)
 
     # When the button is clicked, validate and show the result
     if st.button("Validate"):
