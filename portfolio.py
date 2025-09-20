@@ -9,7 +9,6 @@ st.set_page_config(
 
 def show_header():
     """Display the main header and introductory text."""
-    st.markdown("")
     st.markdown(
         "<h1 style='text-align: center; color:#f18016;'>Rafael's portfolio</h1>",
         unsafe_allow_html=True
