@@ -47,7 +47,7 @@ def is_valid_cpf(cpf_input: str) -> tuple[bool, str]:
     if not check_second_digit(cpf):
         return False, "❌ Second check digit is invalid!"
 
-    return True, "✅ CPF válido!"
+    return True, "✅ Valid CPF!"
 
 
 # --------------------------------------------------
