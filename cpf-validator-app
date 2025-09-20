@@ -1,51 +1,75 @@
 import streamlit as st
 
-def check_first_digit(text):
-    sum_variable = sum(int(text[i]) * (10 - i) for i in range(9))
-    remainder = sum_variable % 11
-    if remainder < 2:
-        digit01 = 0
-    else:
-        digit01 = 11 - remainder
+# --------------------------------------------------
+# Validation helpers
+# --------------------------------------------------
+def check_first_digit(cpf: str) -> bool:
+    """
+    Compute and validate the first check digit of a CPF.
+    """
+    # Sum of the first 9 digits weighted by 10‑i
+    total = sum(int(cpf[i]) * (10 - i) for i in range(9))
+    remainder = total % 11
+    digit01 = 0 if remainder < 2 else 11 - remainder
     return digit01 == int(cpf[9])
 
-def check_second_digit(text):
-    sum_variable = sum(int(text[i]) * (11 - i) for i in range(10))
-    remainder = sum_variable % 11
-    if remainder < 2:
-        digit02 = 0
-    else:
-        digit02 = 11 - remainder
+
+def check_second_digit(cpf: str) -> bool:
+    """
+    Compute and validate the second check digit of a CPF.
+    """
+    # Sum of the first 10 digits weighted by 11‑i
+    total = sum(int(cpf[i]) * (11 - i) for i in range(10))
+    remainder = total % 11
+    digit02 = 0 if remainder < 2 else 11 - remainder
     return digit02 == int(cpf[10])
 
-def is_valid_cpf(text):
-    # Get all digits
+
+def is_valid_cpf(cpf_input: str) -> tuple[bool, str]:
+    """
+    Remove all non‑digit characters, then validate length,
+    repeated sequences, and the two check digits.
+    """
+    # Keep only digits
     cpf = ''.join(filter(str.isdigit, cpf_input))
 
-    # Check input text
+    # Must contain exactly 11 digits
     if len(cpf) != 11:
         return False, "❌ CPF must have 11 digits"
-    elif cpf == cpf[0] * 11:
+
+    # Reject repeated sequences like 11111111111
+    if cpf == cpf[0] * 11:
         return False, "❌ Invalid CPF (repeated sequence!)"
 
-    is_ok = check_first_digit(text)
-    if not is_ok:
+    # Validate each check digit
+    if not check_first_digit(cpf):
         return False, "❌ First check digit is invalid!"
-    
-    is_ok = check_second_digit(text)
-    if not is_ok:
+    if not check_second_digit(cpf):
         return False, "❌ Second check digit is invalid!"
+
     return True, "✅ CPF válido!"
 
-def main():
+
+# --------------------------------------------------
+# Streamlit UI
+# --------------------------------------------------
+def main() -> None:
     st.title("CPF Validator")
-    cpf_input = st.text_input("Please write you CPF number:")
 
+    # Input field for the user to type a CPF
+    cpf_input = st.text_input("Enter your CPF:")
+
+    # When the button is clicked, validate and show the result
     if st.button("Validate"):
-        is_ok, response = is_valid_cpf(cpf_input)
-        if is_ok:
-            st.success(response)
+        ok, message = is_valid_cpf(cpf_input)
+        if ok:
+            st.success(message)
         else:
-            st.error(response)
+            st.error(message)
 
-main()
+
+# --------------------------------------------------
+# Entry point guard
+# --------------------------------------------------
+if __name__ == "__main__":
+    main()
