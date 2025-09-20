@@ -56,8 +56,8 @@ def show_projects():
     )
     st.markdown(
         """
-        - [Open App](https://phyton-5wygoo5pv5qwkhs8b2rktu.streamlit.app/)
-        - [View on GitHub](https://github.com/rafaeloureiro/Phyton/blob/main/hangman_game/hangman)
+        - [Open App](https://phyton-pthwt2jnkquyu9tgrcn9nz.streamlit.app/)
+        - [View on GitHub](https://github.com/rafaeloureiro/Phyton/blob/main/cpf-validator-app.py)
         """
     )
 
