@@ -21,7 +21,7 @@ def show_header():
 
 def show_about_me():
     """Display the About Me section with contact links."""
-    st.markdown("<h2 style='color:#f18016;'>About Me</h2>", unsafe_allow_html=True)
+    st.markdown("/n<h2 style='color:#f18016;'>About Me</h2>", unsafe_allow_html=True)
     st.markdown(
         """
         <p style='color:black;'>
