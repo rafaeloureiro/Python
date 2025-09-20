@@ -18,6 +18,7 @@ def show_header():
         "<p style='text-align: center; color:black;'><b>Welcome to my Python portfolio! 🚀</b></p>",
         unsafe_allow_html=True
     )
+st.markdown("")
 
 def show_about_me():
     """Display the About Me section with contact links."""
