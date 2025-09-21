@@ -14,7 +14,7 @@ def show_header():
         unsafe_allow_html=True
     )
     st.markdown(
-        "<p style='text-align: center; color:black;'><b>Welcome to my Python portfolio!</b></p>",
+        "<p style='text-align: center; color:black;'><b>Welcome to my portfolio!</b></p>",
         unsafe_allow_html=True
     )
     st.markdown("")
@@ -49,7 +49,7 @@ def show_about_me():
 
 def show_projects():
     """List all projects with titles, descriptions, and links."""
-    st.markdown("<h2 style='color:#f18016;'>Projects</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color:#f18016;'>Python projects</h2>", unsafe_allow_html=True)
 
     # Project 01 – Rock, Paper, Scissors
     st.markdown("**✊🤚✌️ Rock, Paper, Scissors Game**")
