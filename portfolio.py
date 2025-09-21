@@ -14,7 +14,7 @@ def show_header():
         unsafe_allow_html=True
     )
     st.markdown(
-        "<p style='text-align: center; color:black;'><b>Welcome to my Python portfolio! 🚀</b></p>",
+        "<p style='text-align: center; color:black;'><b>Welcome to my Python portfolio!</b></p>",
         unsafe_allow_html=True
     )
 st.markdown("")
