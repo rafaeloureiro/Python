@@ -20,7 +20,7 @@ def show_header():
     st.markdown("")
 
 def show_about_me():
-    """Display the About Me section with contact links."""
+    """Display the About Me section with contact links and articles."""
     st.markdown("<h2 style='color:#f18016;'>About Me</h2>", unsafe_allow_html=True)
     st.markdown(
         """
@@ -31,11 +31,18 @@ def show_about_me():
         """,
         unsafe_allow_html=True
     )
+    st.markdown("<h3 style='color:#f18016;'>Connect with me</h3>", unsafe_allow_html=True)
     st.markdown(
         """
-        **🔗 Connect with me**  
         - [LinkedIn](https://www.linkedin.com/in/rafaeloureiro/)  
         - [GitHub](https://github.com/rafaeloureiro)  
+        """
+    )
+    st.markdown("<h3 style='color:#f18016;'>Articles I've Written</h3>", unsafe_allow_html=True)
+    st.markdown(
+        """
+        - [Por uma taxonomia do delivery de emergência em restaurante](https://www.linkedin.com/pulse/por-uma-taxonomia-do-delivery-emerg%C3%AAncia-restaurante-rafael-fernandes-geayf/?trackingId=35qQiM4I056tkJR1eg6X7Q%3D%3D)
+        - [Análise IPO Raízen e o Brasil](https://www.linkedin.com/pulse/an%25C3%25A1lise-ipo-ra%25C3%25ADzen-e-o-brasil-rafael-loureiro/?trackingId=nkQVZ0OgTAuNhuTZThXZ2w%3D%3D)
         """
     )
     st.divider()
@@ -57,8 +64,8 @@ def show_projects():
     )
     st.markdown(
         """
-        - [Open App]()
-        - [View on GitHub]()
+        - [Open App](https://phyton-rockpaperscissors.streamlit.app/)
+        - [View on GitHub](https://github.com/rafaeloureiro/Phyton/blob/main/rock-paper-scissors-app.py)
         """
     )
     st.markdown("")
