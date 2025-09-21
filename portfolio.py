@@ -63,7 +63,7 @@ def show_projects():
         """
     )
 
-        st.markdown("")
+st.markdown("")
 
   # Project 01 – CPF Validator
     st.markdown("**🔢 CPF Validator**")
