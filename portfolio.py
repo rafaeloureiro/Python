@@ -41,7 +41,7 @@ def show_about_me():
     st.markdown("<h3 style='color:#f18016;'>Articles (written in portuguese)</h3>", unsafe_allow_html=True)
     st.markdown(
         """
-        - [Por uma taxonomia do delivery: a emergência do Restaurante Digital](https://www.linkedin.com/pulse/por-uma-taxonomia-do-delivery-emerg%C3%AAncia-restaurante-rafael-fernandes-geayf/?trackin[...]
+        - [Por uma taxonomia do delivery: a emergência do Restaurante Digital](https://www.linkedin.com/pulse/por-uma-taxonomia-do-delivery-emerg%C3%AAncia-restaurante-rafael-fernandes-geayf/?trackingId=s6HGlOCDRneJ5bfGQFjUYg%3D%3D)
         - [Análise IPO Raízen e o Brasil](https://www.linkedin.com/pulse/an%25C3%25A1lise-ipo-ra%25C3%25ADzen-e-o-brasil-rafael-loureiro/?trackingId=nkQVZ0OgTAuNhuTZThXZ2w%3D%3D)
         """
     )
