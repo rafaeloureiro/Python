@@ -44,26 +44,7 @@ def show_projects():
     """List all projects with titles, descriptions, and links."""
     st.markdown("<h2 style='color:#f18016;'>Projects</h2>", unsafe_allow_html=True)
 
-    # Project 01 – CPF Validator
-    st.markdown("**🔢 CPF Validator**")
-    st.markdown(
-        """
-        <p style='color:black;'>
-        This function is designed to validate Brazilian CPF (Cadastro de Pessoas Físicas) numbers, 
-        which are identification numbers for individuals in Brazil.
-        </p>
-        """,
-        unsafe_allow_html=True
-    )
-    st.markdown(
-        """
-        - [Open App](https://phyton-pthwt2jnkquyu9tgrcn9nz.streamlit.app/)
-        - [View on GitHub](https://github.com/rafaeloureiro/Phyton/blob/main/cpf-validator-app.py)
-        """
-    )
-
-    st.markdown("")
-
+  
     # Project 02 – Hangman
     st.markdown("**🕹️ Hangman game**")
     st.markdown(
@@ -81,6 +62,26 @@ def show_projects():
         - [View on GitHub](https://github.com/rafaeloureiro/Phyton/edit/main/hangman-app.py)
         """
     )
+
+        st.markdown("")
+
+  # Project 01 – CPF Validator
+    st.markdown("**🔢 CPF Validator**")
+    st.markdown(
+        """
+        <p style='color:black;'>
+        This function is designed to validate Brazilian CPF (Cadastro de Pessoas Físicas) numbers, 
+        which are identification numbers for individuals in Brazil.
+        </p>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        """
+        - [Open App](https://phyton-pthwt2jnkquyu9tgrcn9nz.streamlit.app/)
+        - [View on GitHub](https://github.com/rafaeloureiro/Phyton/blob/main/cpf-validator-app.py)
+        """
+    )    
 
 def main():
     """Orchestrate the layout of the Streamlit app."""
