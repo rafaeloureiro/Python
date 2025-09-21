@@ -17,7 +17,7 @@ def show_header():
         "<p style='text-align: center; color:black;'><b>Welcome to my Python portfolio!</b></p>",
         unsafe_allow_html=True
     )
-st.markdown("")
+    st.markdown("")
 
 def show_about_me():
     """Display the About Me section with contact links."""
@@ -44,28 +44,7 @@ def show_projects():
     """List all projects with titles, descriptions, and links."""
     st.markdown("<h2 style='color:#f18016;'>Projects</h2>", unsafe_allow_html=True)
 
-  
-# Project 02 – Hangman
-    st.markdown("**🕹️ Hangman game**")
-    st.markdown(
-        """
-        <p style='color:black;'>
-        Hangman is a classic word‑guessing game for one player on which he
-        tries to guess a random word by suggesting letters one by one within a limited number of incorrect guesses.
-        </p>
-        """,
-        unsafe_allow_html=True
-    )
-    st.markdown(
-        """
-        - [Open App](https://phyton-cn6wsape5vnb5elwrdzwb6.streamlit.app/)
-        - [View on GitHub](https://github.com/rafaeloureiro/Phyton/edit/main/hangman-app.py)
-        """
-    )
-
-st.markdown("")
-
-  # Project 01 – CPF Validator
+    # Project 01 – CPF Validator
     st.markdown("**🔢 CPF Validator**")
     st.markdown(
         """
@@ -82,6 +61,25 @@ st.markdown("")
         - [View on GitHub](https://github.com/rafaeloureiro/Phyton/blob/main/cpf-validator-app.py)
         """
     )    
+    st.markdown("")
+
+    # Project 02 – Hangman
+    st.markdown("**🕹️ Hangman game**")
+    st.markdown(
+        """
+        <p style='color:black;'>
+        Hangman is a classic word‑guessing game for one player on which he
+        tries to guess a random word by suggesting letters one by one within a limited number of incorrect guesses.
+        </p>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        """
+        - [Open App](https://phyton-cn6wsape5vnb5elwrdzwb6.streamlit.app/)
+        - [View on GitHub](https://github.com/rafaeloureiro/Phyton/blob/main/hangman-app.py)
+        """
+    )
 
 def main():
     """Orchestrate the layout of the Streamlit app."""
