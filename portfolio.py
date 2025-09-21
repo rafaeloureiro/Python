@@ -51,8 +51,8 @@ def show_projects():
     """List all projects with titles, descriptions, and links."""
     st.markdown("<h2 style='color:#f18016;'>Python projects</h2>", unsafe_allow_html=True)
 
-    # Project 01 – Personal Assistant in Python Programming
-    st.markdown("**🤖 Personal Assistant in Python Programming**")
+    # Project 01 – Personal assistant in Python programming
+    st.markdown("**🤖 Personal assistant in Python programming**")
     st.markdown(
         """
         <p style='color:black;'>
