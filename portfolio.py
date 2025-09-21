@@ -45,7 +45,7 @@ def show_projects():
     st.markdown("<h2 style='color:#f18016;'>Projects</h2>", unsafe_allow_html=True)
 
   
-    # Project 02 – Hangman
+# Project 02 – Hangman
     st.markdown("**🕹️ Hangman game**")
     st.markdown(
         """
