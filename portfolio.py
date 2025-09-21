@@ -71,8 +71,8 @@ def show_projects():
     )
     st.markdown("")
 
-    # Project 02 – Rock, Paper, Scissors
-    st.markdown("**✊🤚✌️ Rock, Paper, Scissors Game**")
+    # Project 02 – Rock, paper, scissors
+    st.markdown("**✊🤚✌️ Rock, paper, scissors game**")
     st.markdown(
         """
         <p style='color:black;'>
