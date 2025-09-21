@@ -41,7 +41,7 @@ def show_about_me():
     st.markdown("<h3 style='color:#f18016;'>Articles (written in portuguese)</h3>", unsafe_allow_html=True)
     st.markdown(
         """
-        - [Por uma taxonomia do delivery: a emergência do Restaurante Digital](https://www.linkedin.com/pulse/por-uma-taxonomia-do-delivery-emerg%C3%AAncia-restaurante-rafael-fernandes-geayf/?trackingId=35qQiM4I056tkJR1eg6X7Q%3D%3D)
+        - [Por uma taxonomia do delivery: a emergência do Restaurante Digital](https://www.linkedin.com/pulse/por-uma-taxonomia-do-delivery-emerg%C3%AAncia-restaurante-rafael-fernandes-geayf/?trackin[...]
         - [Análise IPO Raízen e o Brasil](https://www.linkedin.com/pulse/an%25C3%25A1lise-ipo-ra%25C3%25ADzen-e-o-brasil-rafael-loureiro/?trackingId=nkQVZ0OgTAuNhuTZThXZ2w%3D%3D)
         """
     )
@@ -51,7 +51,27 @@ def show_projects():
     """List all projects with titles, descriptions, and links."""
     st.markdown("<h2 style='color:#f18016;'>Python projects</h2>", unsafe_allow_html=True)
 
-    # Project 01 – Rock, Paper, Scissors
+    # Project 01 – Personal Assistant in Python Programming
+    st.markdown("**🤖 Personal Assistant in Python Programming**")
+    st.markdown(
+        """
+        <p style='color:black;'>
+        A Python agent developed during the Data Science Academy course "Python Language Fundamentals - From Basics to AI Applications".  
+        This assistant helps users with Python programming questions, offering clear explanations, example code, code details, and official documentation.  
+        Designed to support those learning and coding in Python.
+        </p>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        """
+        - [Open App](https://phyton-ms9pjagd3tuazkcar37zxy.streamlit.app/)  
+        - [View on GitHub](https://github.com/rafaeloureiro/Phyton/blob/main/dsa_assistente.py)
+        """
+    )
+    st.markdown("")
+
+    # Project 02 – Rock, Paper, Scissors
     st.markdown("**✊🤚✌️ Rock, Paper, Scissors Game**")
     st.markdown(
         """
@@ -70,7 +90,7 @@ def show_projects():
     )
     st.markdown("")
 
-    # Project 02 – Hangman
+    # Project 03 – Hangman
     st.markdown("**🕹️ Hangman game**")
     st.markdown(
         """
@@ -89,7 +109,7 @@ def show_projects():
     )
     st.markdown("")
 
-    # Project 03 – CPF Validator
+    # Project 04 – CPF Validator
     st.markdown("**🔢 CPF Validator**")
     st.markdown(
         """
