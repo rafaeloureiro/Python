@@ -109,8 +109,8 @@ def show_projects():
     )
     st.markdown("")
 
-    # Project 04 – CPF Validator
-    st.markdown("**🔢 CPF Validator**")
+    # Project 04 – CPF validator
+    st.markdown("**🔢 CPF validator**")
     st.markdown(
         """
         <p style='color:black;'>
