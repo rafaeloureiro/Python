@@ -38,7 +38,7 @@ def show_about_me():
         - [GitHub](https://github.com/rafaeloureiro)  
         """
     )
-    st.markdown("<h3 style='color:#f18016;'>Articles I've Written</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color:#f18016;'>Articles</h3>", unsafe_allow_html=True)
     st.markdown(
         """
         - [Por uma taxonomia do delivery de emergência em restaurante](https://www.linkedin.com/pulse/por-uma-taxonomia-do-delivery-emerg%C3%AAncia-restaurante-rafael-fernandes-geayf/?trackingId=35qQiM4I056tkJR1eg6X7Q%3D%3D)
