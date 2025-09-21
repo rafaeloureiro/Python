@@ -44,7 +44,26 @@ def show_projects():
     """List all projects with titles, descriptions, and links."""
     st.markdown("<h2 style='color:#f18016;'>Projects</h2>", unsafe_allow_html=True)
 
-    # Project 01 – Hangman
+    # Project 01 – Rock, Paper, Scissors
+    st.markdown("**✊🤚✌️ Rock, Paper, Scissors Game**")
+    st.markdown(
+        """
+        <p style='color:black;'>
+        Play the classic Rock, Paper, Scissors game against the computer!  
+        Choose your move and see if you can beat the computer in this simple but fun game.
+        </p>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        """
+        - [Open App]()
+        - [View on GitHub]()
+        """
+    )
+    st.markdown("")
+
+    # Project 02 – Hangman
     st.markdown("**🕹️ Hangman game**")
     st.markdown(
         """
@@ -63,7 +82,7 @@ def show_projects():
     )
     st.markdown("")
 
-    # Project 02 – CPF Validator
+    # Project 03 – CPF Validator
     st.markdown("**🔢 CPF Validator**")
     st.markdown(
         """
