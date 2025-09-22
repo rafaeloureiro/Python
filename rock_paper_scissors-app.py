@@ -1,23 +1,21 @@
 import streamlit as st
+import random
 
-st.markdown("## Rock, Paper, Scissors Game (2 players)")
+st.markdown("## Rock, Paper, Scissors Game (Player vs Computer)")
 
-st.write("Welcome! Each player must choose one of the options below.")
+st.write("Welcome! You (Player 01) will choose your move, and the computer will guess randomly.")
 play_options = ("rock", "paper", "scissors")
 st.write(f"Play options: {play_options}")
 
 st.divider()
 
-col1, col2 = st.columns(2)
-with col1:
-    player01_play = st.selectbox("Player 01, choose your play option:", play_options)
-with col2:
-    player02_play = st.selectbox("Player 02, choose your play option:", play_options)
+player01_play = st.selectbox("Player 01, choose your play option:", play_options)
 
 if st.button("Play!"):
+    player02_play = random.choice(play_options)
     st.divider()
     st.write(f"Player 01 chose: **{player01_play}**")
-    st.write(f"Player 02 chose: **{player02_play}**")
+    st.write(f"Computer (Player 02) chose: **{player02_play}**")
     st.divider()
 
     # --- Game logic ---
@@ -32,4 +30,4 @@ if st.button("Play!"):
     elif player01_play == player02_play:
         st.info("Result: TIE!")
     else:
-        st.warning("Result: Player 02 won!")
+        st.warning("Result: Computer won! Try again!")
