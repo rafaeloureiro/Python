@@ -3,10 +3,19 @@ import random
 import string
 import streamlit as st
 
-# ---------- 1. words database ----------
+# ---------- 1. page configuration ----------
+st.set_page_config(
+    page_title="Hangman game",
+    page_icon="🕹️",
+    layout="wide"
+)
+
+# ---------- 2. words database ----------
 WORDS = [ "python", "developer", "cannabis", "screen", "work", "internet", "science", "sea", "soccer", "drive"]
 
-# ---------- 2. game management ----------
+
+
+# ---------- 3. game management ----------
 def initialize_game():
     """Initialize or reset the game state."""
     if "game_state" not in st.session_state:
@@ -32,7 +41,7 @@ def update_game_state(key, value):
     """Update a specific value in the game state."""
     st.session_state.game_state[key] = value
 
-# ---------- 3. Game Logic ----------
+# ---------- 4. Game Logic ----------
 def process_guess(guess):
     """Process a player's guess."""
     game_state = get_game_state()
@@ -80,7 +89,7 @@ def check_game_over():
         update_game_state("game_over", True)
         update_game_state("message", {"text": f"💀 Game over – you lost. The word was **{game_state['word']}**.", "type": "error"})
 
-# ---------- 4. UI Components ----------
+# ---------- 5. UI Components ----------
 def display_header():
     """Display the game header."""
     st.set_page_config(page_title="Hang‑man", layout="centered")
@@ -141,7 +150,7 @@ def display_restart_button():
         reset_game()
         st.rerun()
 
-# ---------- 5. Main Application ----------
+# ---------- 6. Main Application ----------
 def main():
     """Main application function."""
     initialize_game()
