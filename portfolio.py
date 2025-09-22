@@ -84,7 +84,7 @@ def show_projects():
     )
     st.markdown(
         """
-        - [Open App](https://phyton-rockpaperscissors.streamlit.app/)
+        - [Open App](https://rps-game-app.streamlit.app/)
         - [View on GitHub](https://github.com/rafaeloureiro/Phyton/blob/main/rock-paper-scissors-app.py)
         """
     )
