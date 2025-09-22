@@ -1,8 +1,10 @@
 import streamlit as st
 
-# --------------------------------------------------
-# Validation helpers
-# --------------------------------------------------
+def display_header():
+    """Display the game header."""
+    st.set_page_config(page_title="🔢 CPF validator", layout="centered")
+    st.title("🔢 CPF validator")
+    
 def check_first_digit(cpf: str) -> bool:
     """
     Compute and validate the first check digit of a CPF.
