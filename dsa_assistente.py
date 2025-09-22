@@ -1,15 +1,15 @@
-#Case Study 1 - DSA AI Coder - Building Your Python Programming Assistant, in Python
+# Case Study 1 - DSA AI Coder - Building Your Python Programming Assistant, in Python
 
-#Module import to interact with the operating system
+# Module import to interact with the operating system
 import os
 
-#Import the Streamlit library to create the interactive web interface
+# Import the Streamlit library to create the interactive web interface
 import streamlit as st
 
-#Import the Groq class to connect to the Groq platform API and access the LLM
+# Import the Groq class to connect to the Groq platform API and access the LLM
 from groq import Groq
 
-#Header configuration
+# Header configuration
 st.set_page_config(
     page_title="DSA AI Coder",
     page_icon="🤖",
@@ -17,39 +17,39 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Define um prompt de sistema que descreve as regras e comportamento do assistente de IA
+# Defines a system prompt that describes the rules and behavior of the AI ​​assistant
 CUSTOM_PROMPT = """
-Você é o "DSA Coder", um assistente de IA especialista em programação, com foco principal em Python. Sua missão é ajudar desenvolvedores iniciantes com dúvidas de programação de forma clara, precisa e útil.
+You are the "DSA Coder," an AI programming assistant specializing in Python. Your mission is to help beginner developers with programming questions in a clear, precise, and helpful way.
 
-REGRAS DE OPERAÇÃO:
-1.  **Foco em Programação**: Responda apenas a perguntas relacionadas a programação, algoritmos, estruturas de dados, bibliotecas e frameworks. Se o usuário perguntar sobre outro assunto, responda educadamente que seu foco é exclusivamente em auxiliar com código.
-2.  **Estrutura da Resposta**: Sempre formate suas respostas da seguinte maneira:
-    * **Explicação Clara**: Comece com uma explicação conceitual sobre o tópico perguntado. Seja direto e didático.
-    * **Exemplo de Código**: Forneça um ou mais blocos de código em Python com a sintaxe correta. O código deve ser bem comentado para explicar as partes importantes.
-    * **Detalhes do Código**: Após o bloco de código, descreva em detalhes o que cada parte do código faz, explicando a lógica e as funções utilizadas.
-    * **Documentação de Referência**: Ao final, inclua uma seção chamada "📚 Documentação de Referência" com um link direto e relevante para a documentação oficial da Linguagem Python (docs.python.org) ou da biblioteca em questão.
-3.  **Clareza e Precisão**: Use uma linguagem clara. Evite jargões desnecessários. Suas respostas devem ser tecnicamente precisas.
+OPERATING RULES:
+1.  **Focus on Programming**: Answer only questions related to programming, algorithms, data structures, libraries, and frameworks. If the user asks about something else, politely respond that your focus is exclusively on helping with code.
+2.  **Response Structure**: Always format your answers as follows:
+    * **Clear explanation**: Start with a conceptual explanation of the topic in question. Be direct and didactic.
+    * **Code example**: Provide one or more blocks of Python code with the correct syntax. The code should be well commented to explain important parts.
+    * **Code details**: After the code block, describe in detail what each part of the code does, explaining the logic and functions used.
+    * **Reference Documentation**: At the end, include a section called "📚 Reference Documentation" with a direct and relevant link to the official documentation for the Python language (docs.python.org) or the library in question.
+3.  **Clarity and Precision**: Use clear language. Avoid unnecessary jargon. Your answers should be technically accurate.
 """
 
-# Cria o conteúdo da barra lateral no Streamlit
+# Create sidebar content in Streamlit
 with st.sidebar:
     
-    # Define o título da barra lateral
+    # Define sidebar title
     st.title("🤖 DSA AI Coder")
     
-    # Mostra um texto explicativo sobre o assistente
-    st.markdown("Um assistente de IA focado em programação Python para ajudar iniciantes.")
+    # Displays an explanatory text about the assistant
+    st.markdown("An AI assistant focused on Python programming to help beginners.")
     
-    # Campo para inserir a chave de API da Groq
+    # Field to enter the Groq API key
     groq_api_key = st.text_input(
-        "Insira sua API Key Groq", 
+        "Insert youy API Groq key", 
         type="password",
-        help="Obtenha sua chave em https://console.groq.com/keys"
+        help="Get your key here https://console.groq.com/keys"
     )
 
-    # Adiciona linhas divisórias e explicações extras na barra lateral
+    # Adds divider lines and extra explanations to the sidebar
     st.markdown("---")
-    st.markdown("Desenvolvido para auxiliar em suas dúvidas de programação com Linguagem Python. IA pode cometer erros. Sempre verifique as respostas.")
+    st.markdown("Designed to help you answer your Python programming questions. AI can make mistakes. Always double-check the answers.")
 
     st.markdown("---")
     st.markdown("Conheça os Cursos Individuais, Formações e Programas de Pós-Graduação da DSA:")
@@ -57,77 +57,77 @@ with st.sidebar:
     # Link para o site da DSA
     st.markdown("🔗 [Data Science Academy](https://www.datascienceacademy.com.br)")
     
-    # Botão de link para enviar e-mail ao suporte da DSA
-    st.link_button("✉️ E-mail Para o Suporte DSA no Caso de Dúvidas", "mailto:suporte@datascienceacademy.com.br")
+    # Link button to email DSA support
+    st.link_button("✉️ Support DSA e-mail for questions", "mailto:suporte@datascienceacademy.com.br")
 
-# Título principal do app
+# Main title of the app
 st.title("Data Science Academy - DSA AI Coder")
 
-# Subtítulo adicional
-st.title("Assistente Pessoal de Programação Python 🐍")
+# Additional subtitle
+st.title("Personal Python programming assistant 🐍")
 
-# Texto auxiliar abaixo do título
-st.caption("Faça sua pergunta sobre a Linguagem Python e obtenha código, explicações e referências.")
+# Auxiliary text below the title
+st.caption("Ask your Python question and get code, explanations, and references.")
 
-# Inicializa o histórico de mensagens na sessão, caso ainda não exista
+# Initializes the message history in the session, if it does not already exist.
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Exibe todas as mensagens anteriores armazenadas no estado da sessão
+# Displays all previous messages stored in the session state
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Inicializa a variável do cliente Groq como None
+# Initializes the Groq client variable to None
 client = None
 
-# Verifica se o usuário forneceu a chave de API da Groq
+# Checks if the user provided the Groq API key
 if groq_api_key:
     
     try:
         
-        # Cria cliente Groq com a chave de API fornecida
+        # Create Groq client with provided API key
         client = Groq(api_key = groq_api_key)
     
     except Exception as e:
         
-        # Exibe erro caso haja problema ao inicializar cliente
-        st.sidebar.error(f"Erro ao inicializar o cliente Groq: {e}")
+        # Displays error if there is a problem initializing the client
+        st.sidebar.error(f"Error initializing Groq client: {e}")
         st.stop()
 
-# Caso não tenha chave, mas já existam mensagens, mostra aviso
+# If there is no key, but there are already messages, it shows a warning
 elif st.session_state.messages:
-     st.warning("Por favor, insira sua API Key da Groq na barra lateral para continuar.")
+     st.warning("Please enter your Groq API key in the sidebar to continue.")
 
-# Captura a entrada do usuário no chat
-if prompt := st.chat_input("Qual sua dúvida sobre Python?"):
+# Captures user input in chat
+if prompt := st.chat_input("What's your question about Python??"):
     
-    # Se não houver cliente válido, mostra aviso e para a execução
+    # If there is no valid client, it displays a warning and stops execution.
     if not client:
-        st.warning("Por favor, insira sua API Key da Groq na barra lateral para começar.")
+        st.warning("Please enter your Groq API key in the sidebar to get started.")
         st.stop()
 
-    # Armazena a mensagem do usuário no estado da sessão
+    # Stores the user's message in the session state
     st.session_state.messages.append({"role": "user", "content": prompt})
     
-    # Exibe a mensagem do usuário no chat
+    # Displays the user's message in the chat
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Prepara mensagens para enviar à API, incluindo prompt de sistema
+    # Prepares messages to send to the API, including system prompts
     messages_for_api = [{"role": "system", "content": CUSTOM_PROMPT}]
     for msg in st.session_state.messages:
         
         messages_for_api.append(msg)
 
-    # Cria a resposta do assistente no chat
+    # Creates the assistant's response in the chat
     with st.chat_message("assistant"):
         
-        with st.spinner("Analisando sua pergunta..."):
+        with st.spinner("Analyzing your question..."):
             
             try:
                 
-                # Chama a API da Groq para gerar a resposta do assistente
+                # Calls the Groq API to generate the assistant response
                 chat_completion = client.chat.completions.create(
                     messages = messages_for_api,
                     model = "openai/gpt-oss-20b", 
@@ -135,27 +135,25 @@ if prompt := st.chat_input("Qual sua dúvida sobre Python?"):
                     max_tokens = 2048,
                 )
                 
-                # Extrai a resposta gerada pela API
-                dsa_ai_resposta = chat_completion.choices[0].message.content
+                # Extracts the response generated by the API
+                dsa_ai_answer = chat_completion.choices[0].message.content
                 
-                # Exibe a resposta no Streamlit
-                st.markdown(dsa_ai_resposta)
+                # Display the response in Streamlit
+                st.markdown(dsa_ai_answer)
                 
-                # Armazena resposta do assistente no estado da sessão
-                st.session_state.messages.append({"role": "assistant", "content": dsa_ai_resposta})
+                # Stores assistant response in session state
+                st.session_state.messages.append({"role": "assistant", "content": dsa_ai_answer})
 
-            # Caso ocorra erro na comunicação com a API, exibe mensagem de erro
+            # If there is an error communicating with the API, an error message is displayed.
             except Exception as e:
-                st.error(f"Ocorreu um erro ao se comunicar com a API da Groq: {e}")
+                st.error(f"An error occurred while communicating with the Groq API: {e}")
 
 st.markdown(
     """
     <div style="text-align: center; color: gray;">
         <hr>
-        <p>DSA AI Coder - Parte Integrante do Curso Gratuito Fundamentos de Linguagem Python da Data Science Academy</p>
+        <p>DSA AI Coder - Part of the Free Python Language Fundamentals Course from Data Science Academy</p>
     </div>
     """,
     unsafe_allow_html=True
 )
-
-# Obrigado DSA
