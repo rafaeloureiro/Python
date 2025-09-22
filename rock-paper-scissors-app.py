@@ -1,46 +1,35 @@
-# --- 1. Rules and presentation ---
+import streamlit as st
 
-print("------------------------------------------------------")
-print("--- Game rock, paper and scissors (2 players) ---")
-print("------------------------------------------------------")
-print("Welcome, each player must choose one of the options.")
+st.markdown("## Rock, Paper, Scissors Game (2 players)")
 
-#Tuple is used here because we shouldn't modify the options we do use do play
+st.write("Welcome! Each player must choose one of the options below.")
 play_options = ("rock", "paper", "scissors")
-print(f"Play options: {play_options}")
-print("------------------------------------------------------")
+st.write(f"Play options: {play_options}")
 
-# --- 2. Data input ---
-player01_initial_play = input("Player 01, choose your play option: ")
-player02_initial_play = input("Player 02, choose your play option: ")
-print("------------------------------------------------------")
+st.divider()
 
-# --- 3. Data processing ---
-#The inputed data through input funcion is always typed as string
-#In order to avoid data processing errors, we convert the input data to lowercase and remove spaces.
-player01_play = player01_initial_play.lower().strip()
-player02_play = player02_initial_play.lower().strip()
-print("------------------------------------------------------")
-print(f"Player 01 chose: {player01_play}")
-print(f"Player 02 chose: {player02_play}")
-print("------------------------------------------------------")
+col1, col2 = st.columns(2)
+with col1:
+    player01_play = st.selectbox("Player 01, choose your play option:", play_options)
+with col2:
+    player02_play = st.selectbox("Player 02, choose your play option:", play_options)
 
-# Checks if the plays are valid
-if player01_play not in play_options or player02_play not in play_options:
-    print("One or both plays are invalid. Please, choose only 'rock', 'paper' or 'scissors'.")
+if st.button("Play!"):
+    st.divider()
+    st.write(f"Player 01 chose: **{player01_play}**")
+    st.write(f"Player 02 chose: **{player02_play}**")
+    st.divider()
 
-# --- 4. Game logic and result ---
-#Case01: WIN!
-elif (player01_play == "pedra" and player02_play == "scissors") or \
-     (player01_play == "scissors" and player02_play == "paper") or \
-     (player01_play == "paper" and player02_play == "rock"):
-    print("Result: Player 01 won! Congratulations!")
-
-#Case02: TIE!
-elif player01_play == player02_play:
-    print("Result: TIE!")
-
-#Case03: LOSS!
-else:
-    print("Result: Player 02 won!")
-
+    # --- Game logic ---
+    if player01_play not in play_options or player02_play not in play_options:
+        st.error("One or both plays are invalid. Please, choose only 'rock', 'paper' or 'scissors'.")
+    elif (
+        (player01_play == "rock" and player02_play == "scissors") or
+        (player01_play == "scissors" and player02_play == "paper") or
+        (player01_play == "paper" and player02_play == "rock")
+    ):
+        st.success("Result: Player 01 won! Congratulations!")
+    elif player01_play == player02_play:
+        st.info("Result: TIE!")
+    else:
+        st.warning("Result: Player 02 won!")
