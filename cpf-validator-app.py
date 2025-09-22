@@ -55,7 +55,8 @@ def is_valid_cpf(cpf_input: str) -> tuple[bool, str]:
 # --------------------------------------------------
 def main() -> None:
     st.title("🔢 CPF validator")
-
+    st.set_page_config(page_title="🔢 CPF validator", layout="centered")
+    
     # Input field for the user to type a CPF
     cpf_input = st.text_input("Enter your CPF:", max_chars=11,)
 
