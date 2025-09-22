@@ -3,7 +3,7 @@ import streamlit as st
 st.set_page_config(page_title="🔢 CPF validator")
 
 def display_header():
-    
+    pass
     
 def check_first_digit(cpf: str) -> bool:
     """
