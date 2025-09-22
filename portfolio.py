@@ -65,7 +65,7 @@ def show_projects():
     )
     st.markdown(
         """
-        - [Open App](https://phyton-ms9pjagd3tuazkcar37zxy.streamlit.app/)  
+        - [Open App](https://dsa-python-assistant.streamlit.app/)  
         - [View on GitHub](https://github.com/rafaeloureiro/Phyton/blob/main/dsa_assistente.py)
         """
     )
@@ -103,7 +103,7 @@ def show_projects():
     )
     st.markdown(
         """
-        - [Open App](https://phyton-cn6wsape5vnb5elwrdzwb6.streamlit.app/)
+        - [Open App](https://hangman-game-app.streamlit.app/)
         - [View on GitHub](https://github.com/rafaeloureiro/Phyton/blob/main/hangman-app.py)
         """
     )
@@ -122,7 +122,7 @@ def show_projects():
     )
     st.markdown(
         """
-        - [Open App](https://phyton-pthwt2jnkquyu9tgrcn9nz.streamlit.app/)
+        - [Open App](https://cpf-validator-app.streamlit.app/)
         - [View on GitHub](https://github.com/rafaeloureiro/Phyton/blob/main/cpf-validator-app.py)
         """
     )    
