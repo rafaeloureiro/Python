@@ -20,7 +20,7 @@ def get_winner(player, computer):
 
 # --- UI Functions ---
 def show_intro():
-    st.markdown("## Rock, Paper, Scissors Game (Player vs Computer)")
+    st.markdown("## Rock, paper, scissors game (Player vs Computer)")
     st.write("Welcome! You (Player 01) will choose your move, and the computer will guess randomly.")
     st.write(f"Play options: {PLAY_OPTIONS}")
     st.divider()
