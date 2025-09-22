@@ -49,10 +49,10 @@ with st.sidebar:
 
     # Adds divider lines and extra explanations to the sidebar
     st.markdown("---")
-    st.markdown("Designed to help you answer your Python programming questions. AI can make mistakes. Always double-check the answers.")
+    st.markdown("Designed to help you with Python programming questions. AI may make mistakes, so always double-check the answers.")
 
     st.markdown("---")
-    st.markdown("Conheça os Cursos Individuais, Formações e Programas de Pós-Graduação da DSA:")
+    st.markdown("Discover Data Science Academy individual courses, training and postgraduate programs:")
 
     # Link para o site da DSA
     st.markdown("🔗 [Data Science Academy](https://www.datascienceacademy.com.br)")
