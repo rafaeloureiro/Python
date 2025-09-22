@@ -1,9 +1,7 @@
 import streamlit as st
 
 def display_header():
-    """Display the game header."""
-    st.set_page_config(page_title="🔢 CPF validator", layout="centered")
-    st.title("🔢 CPF validator")
+    
     
 def check_first_digit(cpf: str) -> bool:
     """
@@ -56,7 +54,7 @@ def is_valid_cpf(cpf_input: str) -> tuple[bool, str]:
 # Streamlit UI
 # --------------------------------------------------
 def main() -> None:
-    st.title("CPF Validator")
+    st.title("🔢 CPF validator")
 
     # Input field for the user to type a CPF
     cpf_input = st.text_input("Enter your CPF:", max_chars=11,)
