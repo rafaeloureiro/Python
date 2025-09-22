@@ -86,7 +86,7 @@ def check_game_over():
 def display_header():
     """Display the game header."""
     st.set_page_config(page_title="🕹️ Hangman game", layout="centered")
-    st.title("🕹️ Hangman Game")
+    st.title("🕹️ Hangman game")
 
 def display_word():
     """Display the word with underscores for hidden letters."""
