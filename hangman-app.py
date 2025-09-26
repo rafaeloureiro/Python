@@ -2,11 +2,22 @@
 import random
 import string
 import streamlit as st
+import requests  # Added for API requests
 
-# ---------- 1. words database ----------
-WORDS = [ "python", "developer", "cannabis", "screen", "work", "internet", "science", "sea", "soccer", "drive"]
-
-
+# ---------- 1. Fetch random word from API ----------
+def fetch_random_word():
+    """Fetch a random English word from an external API."""
+    try:
+        response = requests.get("https://random-word-api.herokuapp.com/word?number=1")
+        response.raise_for_status()
+        word = response.json()[0].lower()
+        # Ensure the word only contains lowercase letters and is reasonable length
+        if word.isalpha() and 4 <= len(word) <= 12:
+            return word
+    except Exception as e:
+        st.warning("Could not fetch a word from the API. Using a fallback word.")
+    # Fallback word if API fails
+    return "python"
 
 # ---------- 2. game management ----------
 def initialize_game():
@@ -16,7 +27,7 @@ def initialize_game():
 
 def reset_game():
     """Reset the game to initial state."""
-    word = random.choice(WORDS).lower()
+    word = fetch_random_word()
     st.session_state.game_state = {
         "word": word,
         "discovered": ["_" for _ in word],  # This creates the underscores
