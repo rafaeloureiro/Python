@@ -26,7 +26,13 @@ from dotenv import load_dotenv
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import pywhatkit as pwk
+
+# pywhatkit é opcional - só funciona em ambiente com GUI (não funciona no Streamlit Cloud)
+try:
+    import pywhatkit as pwk
+    PYWHATKIT_AVAILABLE = True
+except (ImportError, KeyError):
+    PYWHATKIT_AVAILABLE = False
 
 
 class TrelloCashFlowAnalyzer:
@@ -611,6 +617,7 @@ class TrelloCashFlowAnalyzer:
     def send_whatsapp_report(self, file_path: str, today: datetime) -> bool:
         """
         Envia o relatório HTML via WhatsApp Web (com confirmação do usuário).
+        NOTA: Funcionalidade disponível apenas em ambiente local com GUI.
 
         Args:
             file_path: Caminho do arquivo HTML
@@ -619,6 +626,11 @@ class TrelloCashFlowAnalyzer:
         Returns:
             True se enviou com sucesso, False caso contrário
         """
+        if not PYWHATKIT_AVAILABLE:
+            print("\n⚠️ Envio via WhatsApp não disponível neste ambiente (requer GUI)")
+            print("💡 Execute o script localmente para usar esta funcionalidade")
+            return False
+
         try:
             print("\n" + "="*70)
             resposta = input("📱 Deseja enviar o relatório para o sócio via WhatsApp? (s/n): ").strip().lower()
