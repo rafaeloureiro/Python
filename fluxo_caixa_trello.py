@@ -463,8 +463,7 @@ class TrelloCashFlowAnalyzer:
                         [0.5, '#4FB3D4'],    # Azul médio
                         [1, '#2A7A9B']       # Azul escuro
                     ],
-                    line=dict(color='rgba(255,255,255,0.8)', width=1.5),
-                    cornerradius=8
+                    line=dict(color='rgba(255,255,255,0.8)', width=1.5)
                 ),
                 text=df_daily['total_saidas'].apply(
                     lambda x: f"<b>R$ {x:,.2f}</b>".replace(',', 'X').replace('.', ',').replace('X', '.') if x > 0 else ''
