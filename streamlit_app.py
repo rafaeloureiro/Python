@@ -12,11 +12,20 @@ import streamlit as st
 from datetime import datetime, timedelta
 from pathlib import Path
 import sys
+import pytz
 
 # Adicionar o diretório atual ao path para importar o módulo
 sys.path.insert(0, str(Path(__file__).parent))
 
 from fluxo_caixa_trello import TrelloCashFlowAnalyzer
+
+# Configurar timezone do Brasil
+TIMEZONE = pytz.timezone('America/Sao_Paulo')
+
+
+def get_brazil_time():
+    """Retorna a data/hora atual no fuso horário do Brasil."""
+    return datetime.now(TIMEZONE)
 
 
 # Configuração da página
@@ -76,7 +85,7 @@ def main():
 
     # Cabeçalho
     st.markdown('<div class="main-title">📊 Fluxo de Caixa - Contas a Pagar</div>', unsafe_allow_html=True)
-    today = datetime.now()
+    today = get_brazil_time()
     st.markdown(f'<div class="subtitle">Atualizado em: {today.strftime("%d/%m/%Y às %H:%M:%S")}</div>', unsafe_allow_html=True)
 
     # Sidebar com configurações
@@ -143,7 +152,7 @@ def main():
                     st.stop()
 
                 # Definir datas
-                today_calc = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+                today_calc = get_brazil_time().replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=None)
                 end_date = today_calc + timedelta(days=days_ahead - 1)
 
                 # 1. Obter listas do board
@@ -257,7 +266,7 @@ def main():
 
                 with col_btn1:
                     if st.button("💾 Salvar HTML Local"):
-                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                        timestamp = get_brazil_time().strftime("%Y%m%d_%H%M%S")
                         output_filename = f"fluxo_caixa_{timestamp}.html"
                         output_path = analyzer.outputs_dir / output_filename
 
@@ -299,7 +308,7 @@ def main():
 
                 # Rodapé com informações
                 st.divider()
-                st.caption(f"🕐 Última atualização: {datetime.now().strftime('%d/%m/%Y às %H:%M:%S')}")
+                st.caption(f"🕐 Última atualização: {get_brazil_time().strftime('%d/%m/%Y às %H:%M:%S')}")
 
             except Exception as e:
                 st.error(f"❌ Erro ao processar os dados: {str(e)}")
