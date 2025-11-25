@@ -1,0 +1,23 @@
+# Análise de Fluxo de Caixa do Trello - Dependências
+
+# Manipulação de variáveis de ambiente
+python-dotenv==1.0.0
+
+# Requisições HTTP para API do Trello
+requests==2.31.0
+
+# Análise de dados
+pandas==2.1.4
+
+# Gráficos interativos
+plotly==5.18.0
+
+# Envio automático via WhatsApp Web
+pywhatkit==5.4
+
+# Interface web interativa
+streamlit>=1.29.0
+
+# Dependências implícitas (podem já estar instaladas)
+# numpy - instalado automaticamente pelo pandas
+# kaleido - opcional para exportar gráficos como imagens estáticas
