@@ -93,8 +93,8 @@ def buscar_despesas(api_key: str, group_id: int, meses: int) -> List[Dict]:
         st.error(f"Erro ao buscar despesas: {str(e)}")
         return []
 
-def categorizar_com_claude(descricoes: List[str], api_key: str) -> List[Dict]:
-    """Categoriza descrições usando Claude API"""
+def categorizar_com_groq(descricoes: List[str], api_key: str) -> List[Dict]:
+    """Categoriza descrições usando Groq API"""
     try:
         prompt = f"""Você é um assistente especializado em categorizar despesas financeiras.
 
@@ -112,21 +112,21 @@ Descrições:
 IMPORTANTE: Retorne APENAS o JSON array, sem markdown, sem explicações, sem blocos de código."""
 
         headers = {
-            "x-api-key": api_key,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json"
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
         }
 
         payload = {
-            "model": "claude-sonnet-4-20250514",
-            "max_tokens": 4096,
+            "model": "llama-3.3-70b-versatile",
             "messages": [
                 {"role": "user", "content": prompt}
-            ]
+            ],
+            "temperature": 0.3,
+            "max_tokens": 4096
         }
 
         response = requests.post(
-            "https://api.anthropic.com/v1/messages",
+            "https://api.groq.com/openai/v1/chat/completions",
             headers=headers,
             json=payload,
             timeout=30
@@ -134,7 +134,7 @@ IMPORTANTE: Retorne APENAS o JSON array, sem markdown, sem explicações, sem bl
         response.raise_for_status()
 
         resultado = response.json()
-        texto_resposta = resultado["content"][0]["text"].strip()
+        texto_resposta = resultado["choices"][0]["message"]["content"].strip()
 
         # Remover markdown se presente
         if texto_resposta.startswith("```"):
@@ -156,7 +156,7 @@ IMPORTANTE: Retorne APENAS o JSON array, sem markdown, sem explicações, sem bl
         st.warning(f"Erro na categorização com IA: {str(e)}. Usando fallback.")
         return []
 
-def processar_despesas(despesas: List[Dict], claude_api_key: str) -> pd.DataFrame:
+def processar_despesas(despesas: List[Dict], groq_api_key: str) -> pd.DataFrame:
     """Processa despesas e categoriza com IA"""
     if not despesas:
         return pd.DataFrame()
@@ -195,8 +195,8 @@ def processar_despesas(despesas: List[Dict], claude_api_key: str) -> pd.DataFram
 
         status_text.text(f"Categorizando lote {batch_num}/{total_batches}...")
 
-        # Tentar categorizar com Claude
-        categorizacoes = categorizar_com_claude(batch, claude_api_key)
+        # Tentar categorizar com Groq
+        categorizacoes = categorizar_com_groq(batch, groq_api_key)
 
         if categorizacoes:
             for cat in categorizacoes:
@@ -235,7 +235,7 @@ def processar_despesas(despesas: List[Dict], claude_api_key: str) -> pd.DataFram
 # Interface principal
 def main():
     st.title("💰 Dashboard Splitwise com Categorização por IA")
-    st.markdown("Análise inteligente dos seus gastos usando Claude AI")
+    st.markdown("Análise inteligente dos seus gastos usando Groq AI (Llama 3.3)")
 
     # Sidebar para configurações
     with st.sidebar:
@@ -252,14 +252,14 @@ def main():
             help="Obtenha em https://secure.splitwise.com/apps"
         )
 
-        claude_api_key = st.text_input(
-            "Claude API Key (Anthropic)",
-            value=st.secrets.get("CLAUDE_API_KEY", ""),
+        groq_api_key = st.text_input(
+            "Groq API Key",
+            value=st.secrets.get("GROQ_API_KEY", ""),
             type="password",
-            help="Obtenha em https://console.anthropic.com/"
+            help="Obtenha em https://console.groq.com/ (100% GRATUITO)"
         )
 
-        if not splitwise_api_key or not claude_api_key:
+        if not splitwise_api_key or not groq_api_key:
             st.warning("⚠️ Configure as API Keys para continuar")
             st.stop()
 
@@ -307,7 +307,7 @@ def main():
         st.success(f"✅ {len(despesas)} despesas encontradas")
 
         with st.spinner("Categorizando com IA..."):
-            df = processar_despesas(despesas, claude_api_key)
+            df = processar_despesas(despesas, groq_api_key)
 
         if df.empty:
             st.error("Erro ao processar despesas")
