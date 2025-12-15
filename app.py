@@ -230,6 +230,11 @@ def processar_despesas(despesas: List[Dict], groq_api_key: str) -> pd.DataFrame:
     )
     df["confianca_percentual"] = (df["confianca"] * 100).round(1)
 
+    # Colunas formatadas para exibição
+    df["data_formatada"] = df["data"].dt.strftime("%d/%m/%Y")
+    df["valor_formatado"] = df["valor"].apply(lambda x: f"R$ {x:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
+    df["confianca_formatada"] = df["confianca_percentual"].apply(lambda x: f"{x}%")
+
     return df
 
 # Interface principal
@@ -295,6 +300,10 @@ def main():
         # Botão para processar
         processar = st.button("🔄 Processar Despesas", type="primary", use_container_width=True)
 
+        # Exibir última atualização
+        if "ultima_atualizacao" in st.session_state:
+            st.caption(f"🕒 Última atualização: {st.session_state['ultima_atualizacao']}")
+
     # Área principal
     if processar:
         with st.spinner("Buscando despesas..."):
@@ -315,6 +324,7 @@ def main():
 
         # Armazenar no session state
         st.session_state["df"] = df
+        st.session_state["ultima_atualizacao"] = datetime.now().strftime("%d/%m/%Y às %H:%M:%S")
 
     # Exibir análises se houver dados
     if "df" in st.session_state:
@@ -374,10 +384,12 @@ def main():
             ]
 
         # Tabela interativa
+        df_filtrado_ordenado = df_filtrado.sort_values("data", ascending=False).reset_index(drop=True)
+        df_exibicao = df_filtrado_ordenado[["data_formatada", "descricao", "categoria", "valor_formatado", "confianca_formatada", "status_confianca"]].copy()
+        df_exibicao.columns = ["Data", "Descrição", "Categoria", "Valor", "Confiança", "Status"]
+
         st.dataframe(
-            df_filtrado[["data", "descricao", "categoria", "valor", "confianca_percentual", "status_confianca"]]
-            .sort_values("data", ascending=False)
-            .reset_index(drop=True),
+            df_exibicao,
             use_container_width=True,
             height=400
         )
