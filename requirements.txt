@@ -1,17 +1,16 @@
-# Manipulação de variáveis de ambiente
-python-dotenv
+# Interface e Visualização
+streamlit==1.31.0
+plotly==5.18.0
 
-# Requisições HTTP para API do Trello
+# Banco de Dados e Integrações
+supabase==2.3.4
 requests
 
-# Análise de dados
-pandas
+# Inteligência Artificial
+google-generativeai==0.3.2
 
-# Gráficos interativos
-plotly
-
-# Interface web interativa
-streamlit
-
-# Timezone
+# Manipulação de Dados e Tempo
+pandas==2.1.4
+python-dateutil==2.8.2
 pytz
+python-dotenv
