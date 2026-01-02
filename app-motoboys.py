@@ -1,6 +1,12 @@
 """
 Sistema de Controle de Motoboys
 Aplicação web para substituir planilha Excel com interface operacional e gerencial
+
+Versão 2026 - Otimizada para Streamlit Cloud
+- Gemini 2.5 Flash
+- Supabase 2.x
+- Cache otimizado
+- Pandas/Plotly atualizados
 """
 import streamlit as st
 import pandas as pd
