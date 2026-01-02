@@ -8,7 +8,7 @@ requests
 python-dotenv
 
 # Inteligência Artificial (Suporte para Gemini 2.5 Flash)
-google-generativeai>=0.8.0
+google-genai>=0.3.0
 
 # Manipulação de Dados e Tempo
 pandas>=2.2.0
