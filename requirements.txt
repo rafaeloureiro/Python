@@ -1,16 +1,16 @@
 # Interface e Visualização
-streamlit==1.31.0
-plotly==5.18.0
+streamlit>=1.35.0
+plotly>=5.20.0
 
 # Banco de Dados e Integrações
-supabase==2.3.4
+supabase>=2.27.0
 requests
+python-dotenv
 
-# Inteligência Artificial
-google-generativeai==0.3.2
+# Inteligência Artificial (Suporte para Gemini 2.5 Flash)
+google-generativeai>=0.8.6
 
 # Manipulação de Dados e Tempo
-pandas==2.1.4
-python-dateutil==2.8.2
+pandas>=2.2.0
+python-dateutil>=2.9.0
 pytz
-python-dotenv
