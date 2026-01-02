@@ -25,6 +25,47 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+# Verificar configuração de secrets
+try:
+    # Verificar se secrets estão configurados
+    if "supabase" not in st.secrets or "google" not in st.secrets:
+        st.error("""
+        ⚠️ **Configuração Necessária**
+
+        Por favor, configure os secrets no Streamlit Cloud:
+
+        1. Vá em **Settings** > **Secrets**
+        2. Adicione o seguinte conteúdo:
+
+        ```toml
+        [supabase]
+        url = "https://sttpygyknnuqrdfuzfph.supabase.co"
+        key = "SUA_SUPABASE_KEY"
+
+        [google]
+        api_key = "SUA_GOOGLE_API_KEY"
+        ```
+
+        Consulte o arquivo `DEPLOY.md` para instruções detalhadas.
+        """)
+        st.stop()
+except Exception as e:
+    st.error(f"""
+    ⚠️ **Erro de Configuração**
+
+    Não foi possível carregar as configurações (secrets).
+
+    **Para desenvolvimento local:**
+    - Certifique-se de que o arquivo `.streamlit/secrets.toml` existe
+    - Preencha com suas credenciais do Supabase e Google
+
+    **Para Streamlit Cloud:**
+    - Configure os secrets em Settings > Secrets
+
+    **Erro:** {str(e)}
+    """)
+    st.stop()
+
 # CSS customizado
 st.markdown("""
 <style>
